@@ -1,0 +1,67 @@
+.page-hero {
+  padding: 120px 0;
+  background: url("../images/image\ 6.png") no-repeat center;
+
+  background-size: cover;
+  color: white;
+}
+
+.page-hero h1 {
+  font-weight: 700;
+  font-size: 3.5rem;
+}
+
+.page-hero .lead {
+ color: white;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+.section-title {
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.section-bg {
+  background-color: var(--background-color);
+}
+
+.accordion-item {
+        margin-bottom: 15px;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+        overflow: hidden; /* Ensures border-radius applies nicely */
+      }
+
+      .accordion-button {
+        font-weight: 600;
+        color: var(--primary-color);
+        background-color: white; /* Default background for button */
+        padding: 1.25rem 1.5rem;
+        border-radius: 10px; /* Applies to top corners when collapsed */
+        transition: background-color 0.3s ease;
+      }
+
+      .accordion-button:not(.collapsed) {
+        background-color: var(--secondary-color);
+        color: white;
+        box-shadow: none;
+        border-bottom-left-radius: 0; /* Remove bottom radius when open */
+        border-bottom-right-radius: 0;
+      }
+
+      .accordion-button:focus {
+        box-shadow: none;
+        border-color: transparent;
+      }
+
+      .accordion-body {
+        padding: 1.5rem;
+        background-color: var(--bg-light); /* Light background for content */
+        border-top: 1px solid #e0e0e0;
+        color: var(--text-dark);
+      }

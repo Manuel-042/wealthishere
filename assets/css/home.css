@@ -1,0 +1,284 @@
+.hero-section {
+  position: relative;
+  height: 80vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+#heroCarousel {
+  height: 80vh;
+  position: relative;
+}
+#f4f_slide {
+  height: 80vh;
+  background-image: url("../images/home_cover.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+#f4f_slide::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(0, 28, 119, 0.45) 47%, rgba(0, 60, 255, 0.1) 78%);
+}
+#gap_slide {
+  height: 80vh;
+  background-image: url("../images/home_cover_2.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+#heroCarousel .carousel-item {
+  height: 80vh;
+
+  position: relative;
+}
+
+#heroCarousel .carousel-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(2, 32, 105, 0.5); */
+}
+
+.carousel-caption {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+
+.carousel-caption .subtitle {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: white;
+}
+
+.carousel-caption h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0 1.5rem 0;
+  color: var(--text-light);
+}
+
+.btn-apply {
+  background-color: rgba(0, 79, 159, 1);
+  color: white;
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-apply:hover {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+
+  /* color: var(--primary-color); */
+  transform: translateY(-2px);
+}
+
+.section {
+  padding: 80px 0;
+}
+
+.section-title {
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* Ensure images within the carousel fit well and have the border-radius and shadow */
+.about-campaign-section .carousel-item {
+  height: 400px; /* Set a fixed height for all carousel items to ensure consistency */
+  overflow: hidden; /* Hide any overflow if the image is larger than the container */
+}
+
+.about-campaign-section .carousel-item img {
+  border-radius: 15px; /* Apply the border-radius to the images inside the carousel */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Apply the box-shadow */
+  width: 100%; /* Ensure images take full width of their container */
+  height: 100%; /* Make images take full height of their parent carousel-item */
+  object-fit: cover; /* This will make sure the image covers the area without distortion, cropping if necessary */
+  transition: opacity 0.6s ease-in-out; /* Add transition for fade effect, although carousel-fade handles it too */
+}
+/* 
+.about-campaign-section a {
+  color: #3b82f6; 
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 4px;
+  padding: 2px 4px;
+} */
+
+/* Hover effects */
+/* .about-campaign-section a:hover {
+  color: #1d4ed8; 
+  background-color: rgba(59, 130, 246, 0.1);
+  transform: translateY(-1px);
+} */
+
+/* Focus state for accessibility */
+/* .about-campaign-section a:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  background-color: rgba(59, 130, 246, 0.05);
+} */
+
+/* Active state */
+/* .about-campaign-section a:active {
+  transform: translateY(0);
+  color: #1e40af;
+} */
+
+/* Modern underline effect */
+/* .about-campaign-section a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+} */
+
+/* .about-campaign-section a:hover::after {
+  width: 100%;
+} */
+
+/* Visited state - subtle difference */
+/* .about-campaign-section a:visited {
+  color: #6366f1;
+} */
+
+.btn-learn-more {
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  border-radius: 50px;
+  padding: 10px 25px;
+  font-weight: 600;
+}
+.btn-learn-more:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.program-section {
+  background-color: var(--background-color);
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.faq-section .accordion-item {
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+.faq-section .accordion-button {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+.faq-section .accordion-button:focus {
+  box-shadow: none;
+}
+.faq-section .accordion-button:not(.collapsed) {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.contact-section {
+  background-color: var(--background-color);
+}
+.contact-form {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+.contact-info h2 {
+  color: var(--primary-color);
+}
+
+/* Added for home page responsiveness */
+@media (max-width: 767.98px) {
+  .hero-section {
+    height: auto;
+  }
+  #heroCarousel {
+  height: auto;
+
+  position: relative;
+}
+  #heroCarousel .carousel-item {
+    height: 60vh; /* Reduce hero height on smaller screens */
+  }
+
+  .carousel-caption h1 {
+    font-size: 2.5rem; /* Smaller hero title */
+  }
+
+  .carousel-caption .subtitle {
+    font-size: 1rem; /* Smaller hero subtitle */
+  }
+
+  .section {
+    padding: 3rem 0; /* Reduce section padding */
+  }
+
+  .about-campaign-section .col-lg-6 {
+    margin-bottom: 2rem; /* Add space between image and text on mobile */
+  }
+
+  .about-campaign-section .carousel-item {
+    height: 300px; /* Adjust height for smaller screens */
+  }
+}
+
+@media (max-width: 575.98px) {
+	#f4f_slide {
+		background-size: cover;
+		background-position: right;
+	}
+	
+  .carousel-caption h1 {
+    font-size: 2rem; /* Even smaller hero title on very small screens */
+  }
+
+  .btn-apply {
+    padding: 10px 20px; /* Smaller button padding */
+    font-size: 0.9rem;
+  }
+
+  .about-campaign-section .carousel-item {
+    height: 250px; /* Further adjust height for very small screens */
+  }
+}

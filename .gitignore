@@ -1,0 +1,39 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor folders
+.idea/
+.vscode/
+
+# Logs and cache
+application/logs/
+application/cache/
+writable/logs/
+writable/cache/
+
+# Uploaded files or temp files
+uploads/
+tmp/
+temp/
+application/sql/
+assets/videos/
+
+# Composer vendor (optional)
+vendor/
+# composer.lock
+
+# Node dependencies (if you use npm or yarn)
+node_modules/
+
+# Environment config files
+.env
+.env.local
+.env.production
+
+# Build artifacts (if any)
+dist/
+build/
+
+# Plesk specific files (optional)
+.plesk/

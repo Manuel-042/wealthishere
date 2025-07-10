@@ -1,0 +1,107 @@
+ 
+.page-hero {
+   padding: 120px 0;
+  background: url("../images/F4F\ Product\ display.jpg") no-repeat center center;
+  background-size: cover;
+  color: white;
+  height: 80vh;
+  align-items: center;
+
+  align-content: center;
+}
+.page-hero::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(0, 28, 119, 0.45) 47%, rgba(0, 60, 255, 0.1) 78%);
+
+
+}
+      .page-hero h1 {
+        font-weight: 700;
+        font-size: 3.5rem;
+        color: white;
+      }
+
+      .page-hero .lead {
+        font-size: 1.25rem;
+        color: white;
+
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .section-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 40px;
+        text-align: center;
+        font-size: 2.5rem;
+      }
+
+      .form-section-card {
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 30px;
+      }
+
+      .form-section-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--accent-color);
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+      .btn-primary:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+      }
+
+      .btn-secondary {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+        color: var(--primary-color);
+      }
+      .btn-secondary:hover {
+        background-color: #e09b00;
+        border-color: #e09b00;
+      }
+
+      .form-check-input:checked {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+      .form-check-input:focus {
+        box-shadow: 0 0 0 0.25rem rgba(0, 51, 102, 0.25);
+      }
+
+      .dynamic-team-member-section {
+        border: 1px dashed #ccc;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 10px;
+        position: relative;
+      }
+      .dynamic-team-member-section .remove-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }

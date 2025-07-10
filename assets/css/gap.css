@@ -1,0 +1,369 @@
+
+.page-hero {
+  padding: 120px 0;
+  background: url("../images/gap_landing.jpg") no-repeat center center;
+  background-size: cover;
+  color: white;
+  height: 80vh;
+  align-items: center;
+	display: flex;
+  align-content: center;
+  position: relative;
+  overflow: hidden;
+   height: 80vh;
+  align-items: center;
+}
+
+.page-hero::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(0, 28, 119, 0.45) 47%, rgba(0, 60, 255, 0.1) 78%);
+
+
+}
+
+.page-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+
+  color: var(--text-light); /* Override for hero */
+}
+
+.page-hero .lead {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-light);
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.section-bg {
+  background-color: var(--bg-light);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+/*.section-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--accent-color);
+  border-radius: 5px;
+} */
+
+.partner-logo {
+  max-height: 100px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.prize-card {
+  text-align: center;
+  padding: 2.5rem;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  height: 100%; /* Ensure cards are same height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.prize-card .icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.prize-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.prize-card p {
+  color: var(--text-dark);
+}
+
+.winner-card {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.winner-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+.winner-card h5 {
+  margin-bottom: 0.25rem;
+}
+
+.cta-section {
+  /* background-color: var(--primary-color); */
+  color: rgba(0, 0, 0, 1);
+  text-align: center;
+  padding: 5rem 0;
+}
+
+.cta-section h2 {
+  color: rgba(14, 43, 99, 1);
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+
+.btn-apply {
+  background-color: rgba(0, 79, 159, 1);
+  color: white;
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-apply:hover {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+
+  /* color: var(--primary-color); */
+  transform: translateY(-2px);
+}
+.list-item-icon {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin-right: 0.75rem;
+}
+.institution-item {
+  flex-basis: 22%; /* Adjust as needed for spacing */
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.institution-logo {
+  max-width: 80px; /* Adjust the size of the logos as needed */
+  height: auto;
+  margin-bottom: 10px;
+}
+
+
+/* For smaller screens, adjust the flex-basis to allow more items per row */
+@media (max-width: 768px) {
+  .institution-item {
+    flex-basis: 45%; /* Two items per row on medium screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .institution-item {
+    flex-basis: 90%; /* One item per row on small screens */
+  }
+}
+/* Styles for objective icons */
+.objective-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+.objective-item .icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.objective-item p {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+/* Styles for Application Process (adapted from Stages of Competition) */
+.process-step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.process-step-icon {
+  width: 50px;
+  height: 50px;
+  min-width: 50px; /* Prevent shrinking */
+  min-height: 50px; /* Prevent shrinking */
+  background-color: rgba(0, 79, 159, 1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  margin-right: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1; /* Ensure icon is above line */
+}
+
+.process-step-content {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+.process-step-content h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.process-line {
+  position: absolute;
+  left: 24px; /* Adjust to align with center of icons */
+  top: 60px; /* Start below the first icon */
+  bottom: 0; /* Extend to the bottom */
+  width: 2px;
+  background-color: rgba(217, 217, 217, 1);
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .process-line {
+    display: none; /* Hide line on small screens for simpler layout */
+  }
+  .process-step {
+    margin-bottom: 20px;
+  }
+  .process-step-icon {
+    margin-bottom: 15px;
+    margin-right: 0; /* Remove horizontal margin */
+  }
+  .process-step-content {
+    margin-left: 0; /* Remove horizontal margin */
+    width: 100%;
+  }
+  
+  .winners-carousel {
+    justify-content: initial; /* Allow content to scroll fully */
+  }
+  .winner-card-container {
+    width: 200px; /* Smaller card width on mobile */
+  }
+}
+
+@media (max-width: 575.98px) {
+  .page-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .page-hero .lead {
+    font-size: 20px;
+  }
+}
+
+.prize-intro {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.prize-intro h2 {
+  font-size: 3.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.prize-intro p {
+  font-size: 1.25rem;
+  color: var(--text-dark);
+}
+
+.winners-carousel {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  padding: 0 2rem 1rem; /* Space for scrollbar */
+  gap: 1.5rem; /* Space between winner cards */
+  scroll-snap-type: x mandatory; /* Snap to cards */
+  justify-content: space-around; /* Align items to the start */
+  align-items: flex-start; /* Align items to the top */
+}
+
+.winner-card-container {
+  flex: 0 0 auto; /* Prevent cards from shrinking */
+  width: 280px; /* Fixed width for each card, adjust as needed */
+  scroll-snap-align: start; /* Snap point at the start of each card */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  height: 16em;
+  overflow: hidden;
+}
+
+.winner-card-container:hover {
+  transform: translateY(-5px);
+}
+
+.winner-card-container img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--accent-color);
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.winner-card-container h5 {
+  margin-bottom: 0.25rem;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.winner-card-container p {
+  color: var(--text-dark);
+  font-size: 0.9rem;
+}

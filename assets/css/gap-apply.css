@@ -1,0 +1,263 @@
+
+
+/* General Body Styling */
+body {
+  font-family: Montserrat;
+
+  color: var(--dark-gray);
+  background-color: var(--light-gray);
+  line-height: 1.6;
+}
+
+
+
+/* Page Hero Section */
+.page-hero {
+  padding: 120px 0;
+  background: url("../images/F4F\ Product\ display.jpg") no-repeat center center;
+  background-size: cover;
+  color: white;
+  height: 80vh;
+  align-items: center;
+  align-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(0, 28, 119, 0.45) 47%, rgba(0, 60, 255, 0.1) 78%);
+
+
+}
+
+.page-hero h1 {
+  font-weight: 700;
+  font-size: 3.5rem;
+  color: white;
+}
+
+.page-hero .lead {
+  font-size: 1.25rem;
+  opacity: 1;
+        color: white;
+
+}
+
+/* Form Sections */
+.section {
+  padding: 60px 0;
+}
+
+.section-title {
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.form-section-card {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.form-section-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent-color);
+  display: inline-block;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.btn-secondary {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--primary-color);
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+.btn-secondary:hover {
+  background-color: #e09b00; /* A darker shade of accent */
+  border-color: #e09b00;
+  color: white;
+}
+
+.btn-outline-secondary {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.btn-outline-secondary:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Form Elements */
+.form-label {
+  font-weight: 500;
+  color: var(--dark-gray);
+  margin-bottom: 8px;
+}
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  padding: 10px 15px;
+  border: 1px solid #ced4da;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 0.25rem rgba(0, 51, 102, 0.25);
+}
+
+.form-check-input:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(0, 51, 102, 0.25);
+}
+
+/* Dynamic Team Member Section */
+.dynamic-team-member-section {
+  border: 1px dashed #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  position: relative;
+  background-color: #fefefe;
+}
+
+.dynamic-team-member-section h5 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.dynamic-team-member-section .remove-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dynamic-team-member-section .remove-btn:hover {
+  background-color: #c82333;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 60px 0 20px 0;
+  font-size: 0.9rem;
+}
+
+.footer h5 {
+  color: var(--accent-color);
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.footer ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.footer ul li {
+  margin-bottom: 10px;
+}
+
+.footer ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer ul li a:hover {
+  color: var(--accent-color);
+}
+
+.footer .social-icons a {
+  color: white;
+  font-size: 1.5rem;
+  margin-right: 15px;
+  transition: color 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  color: var(--accent-color);
+}
+
+.footer .newsletter-form .input-group .form-control {
+  border-radius: 8px 0 0 8px;
+  border: none;
+}
+
+.footer .newsletter-form .input-group .btn-dark {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--primary-color);
+  border-radius: 0 8px 8px 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.footer .newsletter-form .input-group .btn-dark:hover {
+  background-color: #e09b00;
+  border-color: #e09b00;
+  color: white;
+}
+
+.footer .bottom-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 40px;
+  padding-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .page-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .form-section-card {
+    padding: 20px;
+  }
+
+  .form-section-card h3 {
+    font-size: 1.5rem;
+  }
+ 
+}
