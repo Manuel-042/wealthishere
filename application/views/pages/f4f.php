@@ -164,7 +164,7 @@
                         <h4 class="timeline-item-title">3. Pitch Event & Award</h4>
                         <p>
                             The top 10 businesses from the bootcamp will pitch before a
-                            panel of expert judges and investors. 3 winners will be
+                            panel of expert judges and investors. 6 winners will be
                             selected.
                         </p>
                     </div>
@@ -174,7 +174,7 @@
                     <div class="timeline-item-content">
                         <h4 class="timeline-item-title">4. Mentorship</h4>
                         <p>
-                            The 3 Winners will be given financing to execute, strengthen,
+                            The 6 Winners will be given financing to execute, strengthen,
                             advance and scale their businesses under the guidance of
                             seasoned mentors. They will also be connected to the relevant
                             networks they require to make progress.
