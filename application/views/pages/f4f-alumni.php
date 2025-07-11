@@ -23,7 +23,7 @@
             <div class="position-badge">1st Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+                <img src="<?= base_url("assets/images/past_winners/F4F/2023/Adebisi_Opeyemi.jpg") ?>"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Adebisi Opeyemi</h2>
@@ -101,7 +101,7 @@
             <div class="position-badge">1st Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+                <img src="<?= base_url("assets/images/past_winners/F4F/2023/Williams_Ekwebelam.jpg") ?>"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Williams Ekwebelam</h2>
@@ -128,7 +128,7 @@
             <div class="position-badge">1st Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+                <img src="<?= base_url("assets/images/past_winners/F4F/2023/Felicitas_Edeh.jpg") ?>"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Edeh Felicitas</h2>
@@ -191,7 +191,7 @@
             <div class="position-badge second">2nd Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face"
+                <img src="<?= base_url("assets/images/past_winners/F4F/2023/Bernice_Oyedele.jpg") ?>"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Bernice Oyedele</h2>
@@ -227,7 +227,7 @@
             <div class="position-badge second">2nd Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face"
+                <img src="https://i.postimg.cc/4317vFKX/Portrait-Placeholder.png"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Idede Favour</h2>
@@ -249,7 +249,7 @@
             <div class="position-badge second">2nd Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face"
+                <img src="https://i.postimg.cc/4317vFKX/Portrait-Placeholder.png"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Idowu Femi</h2>
@@ -275,7 +275,7 @@
             <div class="position-badge">1st Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1494790108755-2616c0763d24?w=150&h=150&fit=crop&crop=face"
+                <img src="<?= base_url("assets/images/past_winners/F4F/2022/Victoria_Emmanuel.jpg") ?>"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Victoria Emmanuel</h2>
@@ -350,7 +350,7 @@
             <div class="position-badge second">3rd Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face"
+                <img src="<?= base_url("assets/images/past_winners/F4F/2022/Paul_Ugorji.jpg") ?>"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Paul Ugorji</h2>
@@ -431,7 +431,7 @@
             <div class="position-badge">1st Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face"
+                <img src="<?= base_url("assets/images/past_winners/F4F/2021/Ikechukwu_Maky.jpg") ?>"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Ikechukwu Maky</h2>
@@ -481,7 +481,7 @@
             <div class="position-badge">1st Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+                <img src="<?= base_url("assets/images/past_winners/F4F/2019/Taiwo_Kent.jpg")?>"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Taiwo Olawumi Kent-Adebayo <span class="aka-text">(née Iyiola)</span></h2>
@@ -573,7 +573,7 @@
             <div class="position-badge second">2nd Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                <img src="<?= base_url("assets/images/past_winners/F4F/2019/Chiamaka_Ndukwu.jpg") ?>"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Chiamaka Ndukwu</h2>
@@ -641,7 +641,7 @@
             <div class="position-badge third">3rd Place</div>
 
             <div class="profile-section">
-                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                <img src="<?= base_url("assets/images/past_winners/F4F/2019/Lucy_Chioma_Aniagolu.jpg")?>"
                     alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <h2>Lucy Chioma Aniagolu</h2>

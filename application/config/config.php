@@ -41,6 +41,9 @@ $config['index_page'] = '';
 
 $config['ion_auth'] = array(); 
 
+$config['app_timezone'] = 'Africa/Lagos';
+date_default_timezone_set($config['app_timezone']);
+
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
