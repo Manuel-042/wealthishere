@@ -75,12 +75,6 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	// 'hostname' => 'localhost',
-	//'username' => 'ayoadmin5',
-	//'password' => 'ka2?G3bU2gCrshe~',
-	// 'username' => 'root',
-	// 'password' => 'root',
-	// 'database' => 'wealthishere',
 	'hostname' => $_ENV['DB_HOST'],
     'username' => $_ENV['DB_USERNAME'],
     'password' => $_ENV['DB_PASSWORD'],
