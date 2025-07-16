@@ -22,7 +22,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 5px;
   margin-bottom: 20px;
 }
 
@@ -30,12 +30,13 @@
   font-size: 16px;
   font-weight: 500;
   color: #374151;
+  display: block;
 }
 
 .year-select {
-  padding: 12px 20px;
-  border: 2px solid #d1d5db;
-  border-radius: 12px;
+  padding: 10px 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
   background: white;
@@ -43,12 +44,13 @@
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: block;
 }
 
 .year-select:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  /* border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); */
 }
 
 .year-select:hover {
@@ -58,8 +60,11 @@
 .winners-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: masonry;
+  grid-auto-flow: dense;
   gap: 40px;
   margin-bottom: 40px;
+  align-items: start;
 }
 
 .winners-container.hidden {
@@ -121,10 +126,9 @@
 
 .position-badge.third {
   background: linear-gradient(45deg, #cd7f32, #b87333);
-  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3); 
-  color: white; 
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+  color: white;
 }
-
 
 .profile-section {
   display: flex;
@@ -150,8 +154,8 @@
 }
 
 .aka-text {
-    font-size: 1rem;
-    color: #333 !important;
+  font-size: 1rem;
+  color: #333 !important;
 }
 
 .business-name {
@@ -246,6 +250,45 @@
   height: 1px;
   background: linear-gradient(to right, transparent, #ddd, transparent);
   margin: 24px 0;
+}
+
+.expandable-content {
+  max-height: 200px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  position: relative;
+}
+
+.expandable-content.expanded {
+  max-height: none;
+}
+
+.expandable-content:not(.expanded)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(transparent, white);
+  pointer-events: none;
+}
+
+.show-more-btn {
+  margin-top: 10px;
+}
+
+.show-less-btn {
+  margin-top: 1rem;
+  display: none;
+}
+
+.expandable-content.expanded + .show-more-btn {
+  display: none;
+}
+
+.expandable-content.expanded + .show-more-btn + .show-less-btn {
+  display: inline-block;
 }
 
 @media (max-width: 768px) {
