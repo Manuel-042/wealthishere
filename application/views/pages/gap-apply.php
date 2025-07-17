@@ -130,7 +130,7 @@ if ($user_submission_status === 'completed') {
                         <label for="emailAddress" class="form-label">Your Email Address <sup
                                 class="text-danger">*</sup></label>
                         <input type="email" class="form-control" id="emailAddress" name="emailAddress"
-                            value="<?= !empty($form_data['email']) ? $form_data['email'] : ''; ?>" />
+                            value="<?= $user_email ?>" disabled />
                     </div>
                     <div class="col-md-6">
                         <label for="mobileNumber" class="form-label">Your Mobile Number <sup

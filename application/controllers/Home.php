@@ -32,7 +32,7 @@ class Home extends CI_Controller
             $data['application_status'] = 'open';
 
             if (!$this->ion_auth->logged_in()) {
-                $intended_url = $_SERVER['REQUEST_URI']; 
+                $intended_url = $_SERVER['REQUEST_URI'];
                 $base_path = parse_url(base_url(), PHP_URL_PATH);
                 $redirect_path = str_replace($base_path, '/', $intended_url);
                 $this->session->set_userdata('redirect_after_login', $redirect_path);
@@ -40,6 +40,7 @@ class Home extends CI_Controller
             }
 
             $user_id = $this->ion_auth->get_user_id();
+            $data['user_email'] = $this->ion_auth->user()->row()->email;
             $current_app = $this->api_model->get_current_application($type);
             $current_app_id = $current_app['id'];
 
@@ -60,7 +61,7 @@ class Home extends CI_Controller
                 $data['user_submission_status'] = $user_application_status['submission_status'];
                 $data['user_review_status'] = $user_application_status['review_status'];
             }
-            
+
             if ($startsAt && $endsAt && $now >= $startsAt && $now <= $endsAt) {
                 $data['application_start'] = true;
             }
