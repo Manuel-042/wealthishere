@@ -118,7 +118,7 @@
                                 href="<?= site_url('index') ?>">Home</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle <?= (in_array($current_page, ['about', 'f4f', 'f4f-apply'])) ? 'active' : '' ?>"
+                            <a class="nav-link dropdown-toggle <?= (in_array($current_page, ['about', 'f4f', 'f4f-apply', 'faq'])) ? 'active' : '' ?>"
                                 href="#" id="f4fDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Farmers for the Future
                             </a>
@@ -150,11 +150,10 @@
                                 <li>
                                     <a class="dropdown-item" href="<?= site_url('gap-apply') ?>">Apply</a>
                                 </li>
-                                <li><a class="dropdown-item" href="<?= site_url('faq') ?>">FAQs</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle <?= (in_array($current_page, ['past-winners', 'f4f-alumni'])) ? 'active' : '' ?>"
+                            <a class="nav-link dropdown-toggle <?= (in_array($current_page, ['past-winners'])) ? 'active' : '' ?>"
                                 href="#" id="beneficiariesDropdown" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Youth Alumni
@@ -165,7 +164,7 @@
                                         Beneficiaries</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="<?= site_url('f4f-alumni') ?>">Farmers for the
+                                    <a class="dropdown-item" href="<?= site_url('f4f#past-winners') ?>">Farmers for the
                                         Future
                                         Beneficiaries</a>
                                 </li>
@@ -212,6 +211,11 @@
                                     <li>
                                         <a class="dropdown-item" href="<?= site_url('change_password') ?>">
                                             Change Password
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="<?= base_url('api/f4f-application/') .  $user->id ?>">
+                                            My Application
                                         </a>
                                     </li>
                                 </ul>

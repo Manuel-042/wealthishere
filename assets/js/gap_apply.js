@@ -355,7 +355,9 @@ document
     };
 
     const dob = originalFormData.get("dateOfBirth");
-	const yearOfGraduation = formatYear(originalFormData.get("yearOfGraduation"))
+    const yearOfGraduation = formatYear(
+      originalFormData.get("yearOfGraduation")
+    );
 
     // Team Lead Information
     data.team_lead = {
@@ -370,7 +372,10 @@ document
       course_of_study: originalFormData.get("courseRead"),
       faculty: originalFormData.get("faculty"),
       department: originalFormData.get("department"),
-      graduation_year: yearOfGraduation && yearOfGraduation.trim() !== "" ? yearOfGraduation : null, // Extract only year
+      graduation_year:
+        yearOfGraduation && yearOfGraduation.trim() !== ""
+          ? yearOfGraduation
+          : null, // Extract only year
       business_role: originalFormData.get("yourRole"), // Mapped from 'yourRole'
       is_first_business: originalFormData.get("firstBusiness"),
       other_business_description:
@@ -516,6 +521,19 @@ document
         button.disabled = false;
         button.innerHTML = originalContent;
 
+        if (errorData.error === "This application has ended") {
+          Swal.fire({
+            title: "Application Closed",
+            text: "This application is no longer accepting submissions.",
+            icon: "error",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = `${baseUrl}/index`;
+            }
+          });
+          return; // Prevent the generic error modal below from also showing
+        }
+
         Swal.fire({
           title: "An Error occured",
           text: `${errorData.error || response.statusText}`,
@@ -573,8 +591,10 @@ document
       application_id: `${application_id}`,
     };
 
-	const dob = originalFormData.get("dateOfBirth");
-	const yearOfGraduation = formatYear(originalFormData.get("yearOfGraduation"))
+    const dob = originalFormData.get("dateOfBirth");
+    const yearOfGraduation = formatYear(
+      originalFormData.get("yearOfGraduation")
+    );
 
     // Team Lead Information
     data.team_lead = {
@@ -589,7 +609,10 @@ document
       course_of_study: originalFormData.get("courseRead"),
       faculty: originalFormData.get("faculty"),
       department: originalFormData.get("department"),
-      graduation_year: yearOfGraduation && yearOfGraduation.trim() !== "" ? yearOfGraduation : null,
+      graduation_year:
+        yearOfGraduation && yearOfGraduation.trim() !== ""
+          ? yearOfGraduation
+          : null,
       business_role: originalFormData.get("yourRole"), // Mapped from 'yourRole'
       is_first_business: originalFormData.get("firstBusiness"),
       other_business_description:
@@ -734,6 +757,19 @@ document
         console.error("Submission Error:", errorData);
         button.disabled = false;
         button.innerHTML = originalContent;
+
+        if (errorData.error === "This application has ended") {
+          Swal.fire({
+            title: "Application Closed",
+            text: "This application is no longer accepting submissions.",
+            icon: "error",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = `${baseUrl}/index`;
+            }
+          });
+          return; // Prevent the generic error modal below from also showing
+        }
 
         Swal.fire({
           title: "An Error occured",

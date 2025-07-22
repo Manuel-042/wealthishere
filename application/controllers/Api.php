@@ -1,6 +1,19 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * @property CI_URI uri
+ * @property CI_Input input
+ * @property CI_Output output
+ * @property CI_Config config
+ * @property CI_Loader load
+ * @property CI_Upload upload
+ * @property CI_DB_query_builder db
+ * @property CI_Session session
+ * @property Ion_auth ion_auth
+ * @property Api_model api_model
+ * @property CI_DB db
+ */
 class Api extends CI_Controller
 {
 
@@ -43,6 +56,16 @@ class Api extends CI_Controller
 
         // Map inputs
         $data = $object;
+
+        // Check if application is ongoing
+        $is_application_ongoing_response = $this->api_model->is_application_ongoing($data['application']['application_id'], 'f4f');
+
+        log_message('error', 'is application ongoing: ' . $is_application_ongoing_response);
+
+        if (!$is_application_ongoing_response) {
+            log_message('error', 'This application has ended');
+            return respond(400, 'This application has ended', "error");
+        }
 
         $user = $this->ion_auth->user()->row();
 
@@ -170,6 +193,13 @@ class Api extends CI_Controller
 
         if (!$payload || !is_array($payload)) {
             return respond(400, 'Invalid JSON payload');
+        }
+
+        // Check if application is ongoing
+        $is_application_ongoing_response = $this->api_model->is_application_ongoing($payload['application']['application_id'], 'gap');
+
+        if (!$is_application_ongoing_response) {
+            return respond(400, 'This application has ended', "error");
         }
 
         $user = $this->ion_auth->user()->row();
@@ -468,7 +498,7 @@ class Api extends CI_Controller
 
         $response = $this->api_model->submit_email_newsletter($email);
 
-        if ($response === -1) {
+        if ($response === "EMAIL_ALREADY_REGISTERED") {
             respond(400, 'This email is already registered for our newsletter', 'error');
         } else if ($response) {
             respond(200, 'You have successfully registered for our newsletter');
@@ -517,5 +547,93 @@ class Api extends CI_Controller
         } else {
             respond(405, 'Method not allowed', 'error');
         }
+    }
+
+    public function resend()
+    {
+        $data['title'] = 'Resend Activation Email';
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('pages/resend', $data);
+        $this->load->view('layout/footer');
+    }
+
+
+    public function resend_activation_mail()
+    {
+        $offset = (int) $this->input->get('offset');
+        $limit = (int) $this->input->get('limit') ?: 100;
+
+        $result = $this->api_model->resend_activation_email_batch($offset, $limit);
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($result));
+    }
+
+    public function send_custom_email()
+    {
+        $offset = (int) $this->input->get('offset');
+        $limit = (int) $this->input->get('limit') ?: 100;
+
+        $result = $this->api_model->send_custom_email($offset, $limit);
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($result));
+    }
+    public function send_custom_confirm_email()
+    {
+        $offset = (int) $this->input->get('offset');
+        $limit = (int) $this->input->get('limit') ?: 100;
+
+        $result = $this->api_model->send_custom_confirm_email($offset, $limit);
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($result));
+    }
+
+    public function f4f_application($user_id)
+    {
+        $data['title'] = 'Farmers For The Future - Applications';
+
+        $result = $this->api_model->get_applications(null, 'f4f', $user_id);
+
+        if (!$result) {
+            $data['application'] = [];
+        } else {
+            $data['application'] = $result[0];
+
+            log_message('error', 'Application: ' . var_export($data['application'], true));
+
+            $is_application_ongoing_response = $this->api_model->is_application_ongoing($data['application']['main_application_id'], 'f4f');
+
+            if (!$is_application_ongoing_response) {
+                $data['is_ongoing'] = false;
+            } else {
+                $data['is_ongoing'] = $is_application_ongoing_response;
+            }
+        }
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('pages/f4f-application', $data);
+        $this->load->view('layout/footer');
+    }
+    public function gap_application($user_id = null)
+    {
+        $data['title'] = 'Graduate Agripreneur Program - Applications';
+
+        $result = $this->api_model->get_applications(null, 'gap', $user_id);
+
+        if (!$result) {
+            $data['application'] = [];
+        } else {
+            $data['application'] = $result[0];
+        }
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('pages/gap-application', $data);
+        $this->load->view('layout/footer');
     }
 }

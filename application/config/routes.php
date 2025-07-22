@@ -66,6 +66,9 @@ $route['f4f-apply'] = 'home/apply/f4f';
 $route['gap-apply'] = 'home/apply/gap';
 
 
+$route['api/f4f-application/(:num)'] = 'api/f4f_application/$1';
+
+
 $route['api/subscribe'] = 'api/newsletter';
 
 // last

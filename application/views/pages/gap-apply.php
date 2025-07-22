@@ -130,7 +130,7 @@ if ($user_submission_status === 'completed') {
                         <label for="emailAddress" class="form-label">Your Email Address <sup
                                 class="text-danger">*</sup></label>
                         <input type="email" class="form-control" id="emailAddress" name="emailAddress"
-                            value="<?= $user_email ?>" disabled />
+                            value="<?= $user_email ?>" readonly />
                     </div>
                     <div class="col-md-6">
                         <label for="mobileNumber" class="form-label">Your Mobile Number <sup
@@ -826,7 +826,7 @@ if ($user_submission_status === 'completed') {
         let stageOfBusiness = <?= json_encode($form_data['business_stage'] ?? ''); ?>;
         if (stageOfBusiness) $("#stageOfBusiness").val(stageOfBusiness).trigger("change");
 
-        let capitalFunding = <?= json_encode($form_data['has_revieved_funding'] ?? ''); ?>;
+        let capitalFunding = <?= json_encode($form_data['has_recieved_funding'] ?? ''); ?>;
         if (capitalFunding) $("#capitalFunding").val(capitalFunding).trigger("change");
 
         let inPartnership = <?= json_encode($form_data['has_partners'] ?? ''); ?>;

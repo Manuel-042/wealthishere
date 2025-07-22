@@ -5,13 +5,13 @@ const teamMembersContainer = document.getElementById("teamMembersContainer");
 const addTeamMemberBtn = document.getElementById("addTeamMemberBtn");
 const employedInBusinessSelect = document.getElementById("employedInBusiness");
 const otherBusinessesSection = document.getElementById(
-	"otherBusinessesSection"
+  "otherBusinessesSection"
 );
 const revenueSection = document.getElementById("revenueSection");
 const stageOfBusinessSelect = document.getElementById("stageOfBusiness");
 const inPartnershipSelect = document.getElementById("inPartnership");
 const stakeInBusinessSection = document.getElementById(
-	"stakeInBusinessSection"
+  "stakeInBusinessSection"
 );
 const employeeNumberSection = document.getElementById("employeeNumberSection");
 const today = new Date();
@@ -20,87 +20,81 @@ window.addTeamMemberSection = addTeamMemberSection;
 window.updateAddButtonVisibility = updateAddButtonVisibility;
 
 document.addEventListener("DOMContentLoaded", function () {
-	const dobInput = document.querySelector("#dateOfBirth");
-	if (dobInput) {
-		// Calculate the maximum allowed date (13 years ago from today)
-		const maxAllowedDate = new Date();
-		maxAllowedDate.setFullYear(maxAllowedDate.getFullYear() - 13);
+  const dobInput = document.querySelector("#dateOfBirth");
+  if (dobInput) {
+    // Calculate the maximum allowed date (13 years ago from today)
+    const maxAllowedDate = new Date();
+    maxAllowedDate.setFullYear(maxAllowedDate.getFullYear() - 13);
 
-		flatpickr(dobInput, {
-			altInput: true,
-			disableMobile: true,
-			altFormat: "F j, Y",
-			dateFormat: "Y-m-d",
-			maxDate: maxAllowedDate, // Set the maximum selectable date
-		});
-	}
+    flatpickr(dobInput, {
+      altInput: true,
+      disableMobile: true,
+      altFormat: "F j, Y",
+      dateFormat: "Y-m-d",
+      maxDate: maxAllowedDate, // Set the maximum selectable date
+    });
+  }
 
-	const startInput = document.querySelector("#dateStarted");
+  const startInput = document.querySelector("#dateStarted");
 
-	if (startInput) {
-		flatpickr(startInput, {
-			altInput: true,
-			disableMobile: true,
-			maxDate: today, // Set the maximum selectable date
+  if (startInput) {
+    flatpickr(startInput, {
+      altInput: true,
+      disableMobile: true,
+      maxDate: today, // Set the maximum selectable date
 
-			plugins: [
-				new monthSelectPlugin({
-					shorthand: false,
-					dateFormat: "Y-m",
-					altFormat: "F Y",
-				}),
-			],
-		});
-	}
+      plugins: [
+        new monthSelectPlugin({
+          shorthand: false,
+          dateFormat: "Y-m",
+          altFormat: "F Y",
+        }),
+      ],
+    });
+  }
 });
 // Show/hide "If No, describe other businesses" field
 document
-	.getElementById("firstBusiness")
-	.addEventListener("change", function () {
-		if (this.value === "No") {
-			otherBusinessesSection.style.display = "block";
-			otherBusinessesSection
-				.querySelector("textarea")
-				.setAttribute("", "true");
-		} else {
-			otherBusinessesSection.style.display = "none";
-			otherBusinessesSection
-				.querySelector("textarea")
-				.removeAttribute("");
-		}
-	});
+  .getElementById("firstBusiness")
+  .addEventListener("change", function () {
+    if (this.value === "No") {
+      otherBusinessesSection.style.display = "block";
+      otherBusinessesSection.querySelector("textarea").setAttribute("", "true");
+    } else {
+      otherBusinessesSection.style.display = "none";
+      otherBusinessesSection.querySelector("textarea").removeAttribute("");
+    }
+  });
 
 // Show/hide "If Post-Revenue, What is your revenue till date?" field
 stageOfBusinessSelect.addEventListener("change", function () {
-	if (this.value === "Post Revenue: We have started making Revenue") {
-		revenueSection.style.display = "block";
-		revenueSection.querySelector("input").setAttribute("", "true");
-	} else {
-		revenueSection.style.display = "none";
-		revenueSection.querySelector("input").removeAttribute("");
-	}
+  if (this.value === "Post Revenue: We have started making Revenue") {
+    revenueSection.style.display = "block";
+    revenueSection.querySelector("input").setAttribute("", "true");
+  } else {
+    revenueSection.style.display = "none";
+    revenueSection.querySelector("input").removeAttribute("");
+  }
 });
 
 // Show/hide "If yes, what is your stake in the business?" field
 inPartnershipSelect.addEventListener("change", function () {
-	if (this.value === "Yes") {
-		stakeInBusinessSection.style.display = "block";
-		stakeInBusinessSection
-			.querySelector("input")
-			.setAttribute("", "true");
-	} else {
-		stakeInBusinessSection.style.display = "none";
-		stakeInBusinessSection.querySelector("input").removeAttribute("");
-	}
+  if (this.value === "Yes") {
+    stakeInBusinessSection.style.display = "block";
+    stakeInBusinessSection.querySelector("input").setAttribute("", "true");
+  } else {
+    stakeInBusinessSection.style.display = "none";
+    stakeInBusinessSection.querySelector("input").removeAttribute("");
+  }
 });
 
 // Function to add a new team member section
 function addTeamMemberSection() {
-	if (teamMemberCount < maxTeamMembers) {
-		teamMemberCount++;
-		const newMemberDiv = document.createElement("div");
-		newMemberDiv.classList.add("dynamic-team-member-section", "mt-3");
-		newMemberDiv.innerHTML = `
+  if (teamMemberCount < maxTeamMembers) {
+    teamMemberCount++;
+    const newMemberDiv = document.createElement("div");
+    newMemberDiv.classList.add("dynamic-team-member-section", "mt-3");
+    newMemberDiv.innerHTML = `
             <h5>Team Member ${teamMemberCount}</h5>
             <button type="button" class="remove-btn">Remove</button>
             <div class="row g-3">
@@ -228,416 +222,438 @@ function addTeamMemberSection() {
             </div>
          
           `;
-		teamMembersContainer.appendChild(newMemberDiv);
+    teamMembersContainer.appendChild(newMemberDiv);
 
-		// Add event listener to the newly created remove button
-		newMemberDiv
-			.querySelector(".remove-btn")
-			.addEventListener("click", function () {
-				newMemberDiv.remove();
-				teamMemberCount--;
-				updateAddButtonVisibility();
-			});
+    // Add event listener to the newly created remove button
+    newMemberDiv
+      .querySelector(".remove-btn")
+      .addEventListener("click", function () {
+        newMemberDiv.remove();
+        teamMemberCount--;
+        updateAddButtonVisibility();
+      });
 
-		// Add event listener for NYSC Status
-		document
-			.getElementById(`teamStatus${teamMemberCount}`)
-			.addEventListener("change", function () {
-				const nyscStateCodeSection = document.getElementById(
-					`teamNyscStateCodeSection${this.id.match(/\d+/)[0]}`
-				);
-				if (this.value === "NYSC (Currently Serving)") {
-					nyscStateCodeSection.style.display = "block";
-				} else {
-					nyscStateCodeSection.style.display = "none";
-				}
-			});
+    // Add event listener for NYSC Status
+    document
+      .getElementById(`teamStatus${teamMemberCount}`)
+      .addEventListener("change", function () {
+        const nyscStateCodeSection = document.getElementById(
+          `teamNyscStateCodeSection${this.id.match(/\d+/)[0]}`
+        );
+        if (this.value === "NYSC (Currently Serving)") {
+          nyscStateCodeSection.style.display = "block";
+        } else {
+          nyscStateCodeSection.style.display = "none";
+        }
+      });
 
-		updateAddButtonVisibility();
-	}
+    updateAddButtonVisibility();
+  }
 }
 
 function updateAddButtonVisibility() {
-	if (
-		employedInBusinessSelect.value === "Yes" &&
-		teamMemberCount < maxTeamMembers
-	) {
-		addTeamMemberBtn.style.display = "block";
-	} else {
-		addTeamMemberBtn.style.display = "none";
-	}
+  if (
+    employedInBusinessSelect.value === "Yes" &&
+    teamMemberCount < maxTeamMembers
+  ) {
+    addTeamMemberBtn.style.display = "block";
+  } else {
+    addTeamMemberBtn.style.display = "none";
+  }
 }
 
 employedInBusinessSelect.addEventListener("change", function () {
-	if (this.value === "Yes") {
-		addTeamMemberBtn.style.display = "block";
-		employeeNumberSection.style.display = "block"; // Hide general employee count if team members are added
-		employeeNumberSection
-			.querySelector("#howManyFullTime")
-			.setAttribute("", "false");
-		employeeNumberSection
-			.querySelector("#howManyPartTime")
-			.setAttribute("", "false");
-		// If no team members are currently added, add one automatically
-		if (teamMemberCount === 0) {
-			addTeamMemberSection();
-		}
-	} else {
-		addTeamMemberBtn.style.display = "none";
-		employeeNumberSection.style.display = "none"; // Show general employee count if no team members
+  if (this.value === "Yes") {
+    addTeamMemberBtn.style.display = "block";
+    employeeNumberSection.style.display = "block"; // Hide general employee count if team members are added
+    employeeNumberSection
+      .querySelector("#howManyFullTime")
+      .setAttribute("", "false");
+    employeeNumberSection
+      .querySelector("#howManyPartTime")
+      .setAttribute("", "false");
+    // If no team members are currently added, add one automatically
+    if (teamMemberCount === 0) {
+      addTeamMemberSection();
+    }
+  } else {
+    addTeamMemberBtn.style.display = "none";
+    employeeNumberSection.style.display = "none"; // Show general employee count if no team members
 
-		employeeNumberSection
-			.querySelector("#howManyFullTime")
-			.removeAttribute("");
-		employeeNumberSection
-			.querySelector("#howManyPartTime")
-			.removeAttribute("");
-		// Remove all existing team member sections
-		teamMembersContainer.innerHTML = "";
-		teamMemberCount = 0;
-	}
+    employeeNumberSection.querySelector("#howManyFullTime").removeAttribute("");
+    employeeNumberSection.querySelector("#howManyPartTime").removeAttribute("");
+    // Remove all existing team member sections
+    teamMembersContainer.innerHTML = "";
+    teamMemberCount = 0;
+  }
 });
 
 addTeamMemberBtn.addEventListener("click", addTeamMemberSection);
 
 // Form submission handling
 document
-	.getElementById("f4fApplicationForm")
-	.addEventListener("submit", async function (event) {
-		event.preventDefault(); // Prevent actual form submission
+  .getElementById("f4fApplicationForm")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent actual form submission
 
-		const button = document.getElementById("submit_form"); // or event.currentTarget
+    const button = document.getElementById("submit_form"); // or event.currentTarget
 
-		button.disabled = true;
-		const originalContent = button.innerHTML;
-		button.innerHTML =
-			'<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
+    button.disabled = true;
+    const originalContent = button.innerHTML;
+    button.innerHTML =
+      '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
 
-		const formData = new FormData(event.target);
-		const data = {};
+    const formData = new FormData(event.target);
+    const data = {};
 
-		data.application = {
-			submission_status: "completed",
-			application_id: application_id,
-		};
+    data.application = {
+      submission_status: "completed",
+      application_id: application_id,
+    };
 
-		// Team Lead Information
-		data.team_lead = {
-			firstname: formData.get("firstName"),
-			lastname: formData.get("lastName"),
-			email: formData.get("emailAddress"),
-			phone: formData.get("mobileNumber"),
-			gender: formData.get("gender"),
-			date_of_birth: formData.get("dateOfBirth"),
-			nysc_batch: formData.get("nyscBatch"),
-			nysc_callup_number: formData.get("nyscCallUpNo"),
-			nysc_cds_day: formData.get("nyscCdsDay"),
-			posted_to: formData.get("statePostedTo"),
-			nysc_state_code: formData.get("stateCode"),
-			education_qualification: formData.get("highestQualification"),
-			higher_institution: formData.get("higherInstitution"),
-			course_of_study: formData.get("courseRead"),
-			business_role: formData.get("yourRole"),
-			is_first_business: formData.get("firstBusiness"),
-			other_business_description:
-				formData.get("firstBusiness") === "No"
-					? formData.get("otherBusinesses")
-					: "",
-			facebook_url: formData.get("facebookLink"),
-			twitter_handle: formData.get("twitterHandle"),
-			instagram_handle: formData.get("instagramHandle"),
-			linkedIn_url: formData.get("linkedinProfile"),
-			referred_by: formData.get("howDidYouHear"),
-			attended_incubation: formData.get("attendedIncubation"),
-			has_team_members: formData.get("employedInBusiness"),
-			full_time_employee_count:
-				formData.get("employedInBusiness") === "Yes"
-					? parseInt(formData.get("howManyFullTime"))
-					: 0,
-			part_time_employee_count:
-				formData.get("employedInBusiness") === "Yes"
-					? parseInt(formData.get("howManyPartTime"))
-					: 0,
-		};
+    // Team Lead Information
+    data.team_lead = {
+      firstname: formData.get("firstName"),
+      lastname: formData.get("lastName"),
+      email: formData.get("emailAddress"),
+      phone: formData.get("mobileNumber"),
+      gender: formData.get("gender"),
+      date_of_birth: formData.get("dateOfBirth"),
+      nysc_batch: formData.get("nyscBatch"),
+      nysc_callup_number: formData.get("nyscCallUpNo"),
+      nysc_cds_day: formData.get("nyscCdsDay"),
+      posted_to: formData.get("statePostedTo"),
+      nysc_state_code: formData.get("stateCode"),
+      education_qualification: formData.get("highestQualification"),
+      higher_institution: formData.get("higherInstitution"),
+      course_of_study: formData.get("courseRead"),
+      business_role: formData.get("yourRole"),
+      is_first_business: formData.get("firstBusiness"),
+      other_business_description:
+        formData.get("firstBusiness") === "No"
+          ? formData.get("otherBusinesses")
+          : "",
+      facebook_url: formData.get("facebookLink"),
+      twitter_handle: formData.get("twitterHandle"),
+      instagram_handle: formData.get("instagramHandle"),
+      linkedIn_url: formData.get("linkedinProfile"),
+      referred_by: formData.get("howDidYouHear"),
+      attended_incubation: formData.get("attendedIncubation"),
+      has_team_members: formData.get("employedInBusiness"),
+      full_time_employee_count:
+        formData.get("employedInBusiness") === "Yes"
+          ? parseInt(formData.get("howManyFullTime"))
+          : 0,
+      part_time_employee_count:
+        formData.get("employedInBusiness") === "Yes"
+          ? parseInt(formData.get("howManyPartTime"))
+          : 0,
+    };
 
-		// Business Information
-		data.business = {
-			business_name: formData.get("businessName"),
-			business_location: formData.get("businessLocation"),
-			business_website: formData.get("businessWebsite"),
-			agriculture_field: formData.get("agricField"),
-			is_business_registered: formData.get("businessRegistered"),
-			business_start_date: formData.get("dateStarted"),
-			business_stage: formData.get("stageOfBusiness"),
-			revenue_till_date: formData.get("revenueToDate"),
-			business_achievements: formData.get("achievements"),
-			has_received_funding: formData.get("capitalFunding"),
-			has_partners: formData.get("inPartnership"),
-			stake_in_business:
-				formData.get("inPartnership") === "Yes"
-					? parseInt(formData.get("stakeInBusiness"))
-					: 0,
-			has_liabilities: formData.get("hasLoanOrDebt"),
-			problem_to_solve: formData.get("problemSolving"),
-			business_solution: formData.get("describeSolution"),
-			business_offerings: formData.get("productServiceOffering"),
-			target_market: formData.get("targetMarket"),
-			monetization_strategy: formData.get("howMakeMoney"),
-			market_validation: formData.get("proofOfPayment"),
-			business_competitors: formData.get("competitors"),
-			business_uniqueness: formData.get("productUnique"),
-			competitive_advantage: formData.get("planToOutdoCompetition"),
-			business_motivation: formData.get("motivation"),
-			business_vision: formData.get("longTermVision"),
-			founder_strength: formData.get("bestPerson"),
-			business_goals: formData.get("goalNext6Months"),
-			business_challenges: formData.get("biggestChallenges"),
-			business_support: formData.get("supportNeeded"),
-			self_involvement_lifespan: formData.get("longInvolved"),
-		};
+    // Business Information
+    data.business = {
+      business_name: formData.get("businessName"),
+      business_location: formData.get("businessLocation"),
+      business_website: formData.get("businessWebsite"),
+      agriculture_field: formData.get("agricField"),
+      is_business_registered: formData.get("businessRegistered"),
+      business_start_date: formData.get("dateStarted"),
+      business_stage: formData.get("stageOfBusiness"),
+      revenue_till_date: formData.get("revenueToDate"),
+      business_achievements: formData.get("achievements"),
+      has_received_funding: formData.get("capitalFunding"),
+      has_partners: formData.get("inPartnership"),
+      stake_in_business:
+        formData.get("inPartnership") === "Yes"
+          ? parseInt(formData.get("stakeInBusiness"))
+          : 0,
+      has_liabilities: formData.get("hasLoanOrDebt"),
+      problem_to_solve: formData.get("problemSolving"),
+      business_solution: formData.get("describeSolution"),
+      business_offerings: formData.get("productServiceOffering"),
+      target_market: formData.get("targetMarket"),
+      monetization_strategy: formData.get("howMakeMoney"),
+      market_validation: formData.get("proofOfPayment"),
+      business_competitors: formData.get("competitors"),
+      business_uniqueness: formData.get("productUnique"),
+      competitive_advantage: formData.get("planToOutdoCompetition"),
+      business_motivation: formData.get("motivation"),
+      business_vision: formData.get("longTermVision"),
+      founder_strength: formData.get("bestPerson"),
+      business_goals: formData.get("goalNext6Months"),
+      business_challenges: formData.get("biggestChallenges"),
+      business_support: formData.get("supportNeeded"),
+      self_involvement_lifespan: formData.get("longInvolved"),
+    };
 
-		// Team Members Information
-		data.team_members = [];
-		if (employedInBusinessSelect.value === "Yes") {
-			for (let i = 1; i <= teamMemberCount; i++) {
-				data.team_members.push({
-					fullname: formData.get(`teamName${i}`),
-					email: formData.get(`teamEmail${i}`),
-					gender: formData.get(`teamGender${i}`),
-					phone: formData.get(`teamPhone${i}`),
-					location: formData.get(`teamLocation${i}`),
-					status: formData.get(`teamStatus${i}`),
-					nysc_state_code: formData.get(`teamNyscStateCode${i}`), // Add NYSC state code for team members
+    // Team Members Information
+    data.team_members = [];
+    if (employedInBusinessSelect.value === "Yes") {
+      for (let i = 1; i <= teamMemberCount; i++) {
+        data.team_members.push({
+          fullname: formData.get(`teamName${i}`),
+          email: formData.get(`teamEmail${i}`),
+          gender: formData.get(`teamGender${i}`),
+          phone: formData.get(`teamPhone${i}`),
+          location: formData.get(`teamLocation${i}`),
+          status: formData.get(`teamStatus${i}`),
+          nysc_state_code: formData.get(`teamNyscStateCode${i}`), // Add NYSC state code for team members
 
-					education_qualification: formData.get(`teamHighestQualification${i}`),
-					higher_institution: formData.get(`teamHigherInstitution${i}`),
-					course_of_study: formData.get(`teamCourseRead${i}`),
-					business_role: formData.get(`teamRoleInBusiness${i}`),
-					qualification: formData.get(`teamMemberQualification${i}`),
-				});
-			}
-		}
+          education_qualification: formData.get(`teamHighestQualification${i}`),
+          higher_institution: formData.get(`teamHigherInstitution${i}`),
+          course_of_study: formData.get(`teamCourseRead${i}`),
+          business_role: formData.get(`teamRoleInBusiness${i}`),
+          qualification: formData.get(`teamMemberQualification${i}`),
+        });
+      }
+    }
 
-		console.log("Form Data to be Sent:", JSON.stringify(data, null, 2));
+    console.log("Form Data to be Sent:", JSON.stringify(data, null, 2));
 
-		try {
-			const response = await fetch(
-				`${baseUrl}/api/f4f-applications/new/completed`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						"API-key": "d84f2a9e7c4b5e1a3f2d7e4b6c8a9012",
-					},
-					body: JSON.stringify(data),
-				}
-			);
-			console.log({ response });
-			if (response.ok) {
-				button.disabled = false;
-				button.innerHTML = originalContent;
-				Swal.fire({
-					title: "Application saved succesfully",
-					icon: "success",
-				}).then((result) => {
-					if (result.isConfirmed) {
-						window.location.href = `${baseUrl}/index`;
-					}
-				});
-			} else {
-				const errorData = await response.json();
-				console.error("Submission Error:", errorData);
-				button.disabled = false;
-				button.innerHTML = originalContent;
+    try {
+      const response = await fetch(
+        `${baseUrl}/api/f4f-applications/new/completed`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "API-key": "d84f2a9e7c4b5e1a3f2d7e4b6c8a9012",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      console.log({ response });
+      if (response.ok) {
+        button.disabled = false;
+        button.innerHTML = originalContent;
+        Swal.fire({
+          title: "Application saved succesfully",
+          icon: "success",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = `${baseUrl}/index`;
+          }
+        });
+      } else {
+        const errorData = await response.json();
+        console.error("Submission Error:", errorData);
+        button.disabled = false;
+        button.innerHTML = originalContent;
 
-				Swal.fire({
-					title: "An Error occured",
-					text: `${errorData.error || response.statusText}`,
-					icon: "error",
-				});
-			}
-		} catch (error) {
-			console.error("Network or Submission Error:", error);
-			button.disabled = false;
-			button.innerHTML = originalContent;
+        if (errorData.error === "This application has ended") {
+          Swal.fire({
+            title: "Application Closed",
+            text: "This application is no longer accepting submissions.",
+            icon: "error",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = `${baseUrl}/index`;
+            }
+          });
+          return; // Prevent the generic error modal below from also showing
+        }
 
-			Swal.fire({
-				title: "An Error occured",
-				text: "An error occurred during submission. Please try again.",
-				icon: "error",
-			});
-		}
-	});
+        Swal.fire({
+          title: "An Error occured",
+          text: `${errorData.error || response.statusText}`,
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Network or Submission Error:", error);
+      button.disabled = false;
+      button.innerHTML = originalContent;
+
+      Swal.fire({
+        title: "An Error occured",
+        text: "An error occurred during submission. Please try again.",
+        icon: "error",
+      });
+    }
+  });
 
 // Draft submission handling
 document
-	.getElementById("draft_submit")
-	.addEventListener("click", async function (event) {
-		event.preventDefault(); // Prevent actual form submission
-		const button = event.target; // or event.currentTarget
+  .getElementById("draft_submit")
+  .addEventListener("click", async function (event) {
+    event.preventDefault(); // Prevent actual form submission
+    const button = event.target; // or event.currentTarget
 
-		button.disabled = true;
-		const originalContent = button.innerHTML;
-		button.innerHTML =
-			'<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
+    button.disabled = true;
+    const originalContent = button.innerHTML;
+    button.innerHTML =
+      '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
 
-		const formElement = document.getElementById("f4fApplicationForm"); // Get the form element
+    const formElement = document.getElementById("f4fApplicationForm"); // Get the form element
 
-		const formData = new FormData(formElement);
+    const formData = new FormData(formElement);
 
-		const data = {};
+    const data = {};
 
-		data.application = {
-			submission_status: "draft",
-			application_id: application_id,
-		};
+    data.application = {
+      submission_status: "draft",
+      application_id: application_id,
+    };
 
-		// Team Lead Information
-		data.team_lead = {
-			firstname: formData.get("firstName"),
-			lastname: formData.get("lastName"),
-			email: formData.get("emailAddress"),
-			phone: formData.get("mobileNumber"),
-			gender: formData.get("gender"),
-			date_of_birth: formData.get("dateOfBirth"),
-			nysc_batch: formData.get("nyscBatch"),
-			nysc_callup_number: formData.get("nyscCallUpNo"),
-			nysc_cds_day: formData.get("nyscCdsDay"),
-			posted_to: formData.get("statePostedTo"),
-			nysc_state_code: formData.get("stateCode"),
-			education_qualification: formData.get("highestQualification"),
-			higher_institution: formData.get("higherInstitution"),
-			course_of_study: formData.get("courseRead"),
-			business_role: formData.get("yourRole"),
-			is_first_business: formData.get("firstBusiness"),
-			other_business_description:
-				formData.get("firstBusiness") === "No"
-					? formData.get("otherBusinesses")
-					: "",
-			facebook_url: formData.get("facebookLink"),
-			twitter_handle: formData.get("twitterHandle"),
-			instagram_handle: formData.get("instagramHandle"),
-			linkedIn_url: formData.get("linkedinProfile"),
-			referred_by: formData.get("howDidYouHear"),
-			attended_incubation: formData.get("attendedIncubation"),
-			has_team_members: formData.get("employedInBusiness"),
-			full_time_employee_count:
-				formData.get("employedInBusiness") === "Yes"
-					? parseInt(formData.get("howManyFullTime"))
-					: 0,
-			part_time_employee_count:
-				formData.get("employedInBusiness") === "Yes"
-					? parseInt(formData.get("howManyPartTime"))
-					: 0,
-		};
+    // Team Lead Information
+    data.team_lead = {
+      firstname: formData.get("firstName"),
+      lastname: formData.get("lastName"),
+      email: formData.get("emailAddress"),
+      phone: formData.get("mobileNumber"),
+      gender: formData.get("gender"),
+      date_of_birth: formData.get("dateOfBirth"),
+      nysc_batch: formData.get("nyscBatch"),
+      nysc_callup_number: formData.get("nyscCallUpNo"),
+      nysc_cds_day: formData.get("nyscCdsDay"),
+      posted_to: formData.get("statePostedTo"),
+      nysc_state_code: formData.get("stateCode"),
+      education_qualification: formData.get("highestQualification"),
+      higher_institution: formData.get("higherInstitution"),
+      course_of_study: formData.get("courseRead"),
+      business_role: formData.get("yourRole"),
+      is_first_business: formData.get("firstBusiness"),
+      other_business_description:
+        formData.get("firstBusiness") === "No"
+          ? formData.get("otherBusinesses")
+          : "",
+      facebook_url: formData.get("facebookLink"),
+      twitter_handle: formData.get("twitterHandle"),
+      instagram_handle: formData.get("instagramHandle"),
+      linkedIn_url: formData.get("linkedinProfile"),
+      referred_by: formData.get("howDidYouHear"),
+      attended_incubation: formData.get("attendedIncubation"),
+      has_team_members: formData.get("employedInBusiness"),
+      full_time_employee_count:
+        formData.get("employedInBusiness") === "Yes"
+          ? parseInt(formData.get("howManyFullTime"))
+          : 0,
+      part_time_employee_count:
+        formData.get("employedInBusiness") === "Yes"
+          ? parseInt(formData.get("howManyPartTime"))
+          : 0,
+    };
 
-		// Business Information
-		data.business = {
-			business_name: formData.get("businessName"),
-			business_location: formData.get("businessLocation"),
-			business_website: formData.get("businessWebsite"),
-			agriculture_field: formData.get("agricField"),
-			is_business_registered: formData.get("businessRegistered"),
-			business_start_date: formData.get("dateStarted"),
-			business_stage: formData.get("stageOfBusiness"),
-			revenue_till_date: formData.get("revenueToDate"),
-			business_achievements: formData.get("achievements"),
-			has_received_funding: formData.get("capitalFunding"),
-			has_partners: formData.get("inPartnership"),
-			stake_in_business:
-				formData.get("inPartnership") === "Yes"
-					? parseInt(formData.get("stakeInBusiness"))
-					: 0,
-			has_liabilities: formData.get("hasLoanOrDebt"),
-			problem_to_solve: formData.get("problemSolving"),
-			business_solution: formData.get("describeSolution"),
-			business_offerings: formData.get("productServiceOffering"),
-			target_market: formData.get("targetMarket"),
-			monetization_strategy: formData.get("howMakeMoney"),
-			market_validation: formData.get("proofOfPayment"),
-			business_competitors: formData.get("competitors"),
-			business_uniqueness: formData.get("productUnique"),
-			competitive_advantage: formData.get("planToOutdoCompetition"),
-			business_motivation: formData.get("motivation"),
-			business_vision: formData.get("longTermVision"),
-			founder_strength: formData.get("bestPerson"),
-			business_goals: formData.get("goalNext6Months"),
-			business_challenges: formData.get("biggestChallenges"),
-			business_support: formData.get("supportNeeded"),
-			self_involvement_lifespan: formData.get("longInvolved"),
-		};
+    // Business Information
+    data.business = {
+      business_name: formData.get("businessName"),
+      business_location: formData.get("businessLocation"),
+      business_website: formData.get("businessWebsite"),
+      agriculture_field: formData.get("agricField"),
+      is_business_registered: formData.get("businessRegistered"),
+      business_start_date: formData.get("dateStarted"),
+      business_stage: formData.get("stageOfBusiness"),
+      revenue_till_date: formData.get("revenueToDate"),
+      business_achievements: formData.get("achievements"),
+      has_received_funding: formData.get("capitalFunding"),
+      has_partners: formData.get("inPartnership"),
+      stake_in_business:
+        formData.get("inPartnership") === "Yes"
+          ? parseInt(formData.get("stakeInBusiness"))
+          : 0,
+      has_liabilities: formData.get("hasLoanOrDebt"),
+      problem_to_solve: formData.get("problemSolving"),
+      business_solution: formData.get("describeSolution"),
+      business_offerings: formData.get("productServiceOffering"),
+      target_market: formData.get("targetMarket"),
+      monetization_strategy: formData.get("howMakeMoney"),
+      market_validation: formData.get("proofOfPayment"),
+      business_competitors: formData.get("competitors"),
+      business_uniqueness: formData.get("productUnique"),
+      competitive_advantage: formData.get("planToOutdoCompetition"),
+      business_motivation: formData.get("motivation"),
+      business_vision: formData.get("longTermVision"),
+      founder_strength: formData.get("bestPerson"),
+      business_goals: formData.get("goalNext6Months"),
+      business_challenges: formData.get("biggestChallenges"),
+      business_support: formData.get("supportNeeded"),
+      self_involvement_lifespan: formData.get("longInvolved"),
+    };
 
-		// Team Members Information
-		data.team_members = [];
-		if (employedInBusinessSelect.value === "Yes") {
-			for (let i = 1; i <= teamMemberCount; i++) {
-				data.team_members.push({
-					fullname: formData.get(`teamName${i}`),
-					email: formData.get(`teamEmail${i}`),
-					gender: formData.get(`teamGender${i}`),
-					phone: formData.get(`teamPhone${i}`),
-					location: formData.get(`teamLocation${i}`),
-					status: formData.get(`teamStatus${i}`),
-					nysc_state_code: formData.get(`teamNyscStateCode${i}`), // Add NYSC state code for team members
+    // Team Members Information
+    data.team_members = [];
+    if (employedInBusinessSelect.value === "Yes") {
+      for (let i = 1; i <= teamMemberCount; i++) {
+        data.team_members.push({
+          fullname: formData.get(`teamName${i}`),
+          email: formData.get(`teamEmail${i}`),
+          gender: formData.get(`teamGender${i}`),
+          phone: formData.get(`teamPhone${i}`),
+          location: formData.get(`teamLocation${i}`),
+          status: formData.get(`teamStatus${i}`),
+          nysc_state_code: formData.get(`teamNyscStateCode${i}`), // Add NYSC state code for team members
 
-					education_qualification: formData.get(`teamHighestQualification${i}`),
-					higher_institution: formData.get(`teamHigherInstitution${i}`),
-					course_of_study: formData.get(`teamCourseRead${i}`),
-					business_role: formData.get(`teamRoleInBusiness${i}`),
-					qualification: formData.get(`teamMemberQualification${i}`),
-				});
-			}
-		}
+          education_qualification: formData.get(`teamHighestQualification${i}`),
+          higher_institution: formData.get(`teamHigherInstitution${i}`),
+          course_of_study: formData.get(`teamCourseRead${i}`),
+          business_role: formData.get(`teamRoleInBusiness${i}`),
+          qualification: formData.get(`teamMemberQualification${i}`),
+        });
+      }
+    }
 
-		console.log("Form Data to be Sent:", JSON.stringify(data, null, 2));
+    console.log("Form Data to be Sent:", JSON.stringify(data, null, 2));
 
-		try {
-			const response = await fetch(
-				`${baseUrl}/api/f4f-applications/new/draft`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						"API-key": "d84f2a9e7c4b5e1a3f2d7e4b6c8a9012",
-					},
-					body: JSON.stringify(data),
-				}
-			);
-			console.log({ response });
-			if (response.ok) {
-				button.disabled = false;
-				button.innerHTML = originalContent;
-				Swal.fire({
-					title: "Draft saved succesfully",
-					icon: "success",
-				}).then((result) => {
-					if (result.isConfirmed) {
-						window.location.href = `${baseUrl}/index`;
-					}
-				});
-			} else {
-				const errorData = await response.json();
-				console.error("Submission Error:", errorData);
+    try {
+      const response = await fetch(
+        `${baseUrl}/api/f4f-applications/new/draft`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "API-key": "d84f2a9e7c4b5e1a3f2d7e4b6c8a9012",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      console.log({ response });
+      if (response.ok) {
+        button.disabled = false;
+        button.innerHTML = originalContent;
+        Swal.fire({
+          title: "Draft saved succesfully",
+          icon: "success",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = `${baseUrl}/index`;
+          }
+        });
+      } else {
+        const errorData = await response.json();
+        console.error("Submission Error:", errorData);
 
-				button.disabled = false;
-				button.innerHTML = originalContent;
+        button.disabled = false;
+        button.innerHTML = originalContent;
 
-				Swal.fire({
-					title: "An Error occured",
-					text: `${errorData.error || response.statusText}`,
-					icon: "error",
-				});
-			}
-		} catch (error) {
-			console.error("Network or Submission Error:", error);
+        if (errorData.error === "This application has ended") {
+          Swal.fire({
+            title: "Application Closed",
+            text: "This application is no longer accepting submissions.",
+            icon: "error",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = `${baseUrl}/index`;
+            }
+          });
+          return;
+        }
 
-			button.disabled = false;
-			button.innerHTML = originalContent;
+        Swal.fire({
+          title: "An Error occured",
+          text: `${errorData.error || response.statusText}`,
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Network or Submission Error:", error);
 
-			Swal.fire({
-				title: "An Error occured",
-				text: "An error occurred during submission. Please try again.",
-				icon: "error",
-			});
-		}
-	});
+      button.disabled = false;
+      button.innerHTML = originalContent;
+
+      Swal.fire({
+        title: "An Error occured",
+        text: "An error occurred during submission. Please try again.",
+        icon: "error",
+      });
+    }
+  });

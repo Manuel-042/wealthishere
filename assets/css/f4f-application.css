@@ -1,0 +1,314 @@
+.container {
+  max-width: 1200px;
+  padding: 0 1rem;
+}
+
+.page-container {
+  margin-top: 2rem;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.page-header .subtitle {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.page-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: 1rem;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.status-approved {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-draft {
+  background-color: #cccccc;
+  color: #333333;
+  border: 1px solid #cccccc;
+}
+
+.status-approved {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.sections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.section-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.section-header {
+  background-color: #495057;
+  color: white;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.section-body {
+  padding: 1.5rem;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.875rem;
+}
+
+.info-value {
+  color: #6c757d;
+  font-size: 0.875rem;
+  word-break: break-word;
+}
+
+.info-value a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.info-value a:hover {
+  text-decoration: underline;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.team-section {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.team-member {
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 1.25rem;
+  background-color: #fafbfc;
+}
+
+.member-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.member-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-right: 0.75rem;
+}
+
+.member-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.member-role {
+  color: #6c757d;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.long-text {
+  max-width: 100%;
+}
+
+.long-text .info-value {
+  line-height: 1.5;
+}
+
+.business-section .section-header {
+  background-color: #28a745;
+}
+
+.personal-section .section-header {
+  background-color: #007bff;
+}
+
+.nysc-section .section-header {
+  background-color: #17a2b8;
+}
+
+.social-section .section-header {
+  background-color: #6f42c1;
+}
+
+@media (max-width: 768px) {
+  .sections-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .info-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 0.5rem;
+  }
+}
+
+.actions-bar {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.actions-bar button {
+  border-radius: 6px;
+
+  & span {
+    font-weight: 400;
+  }
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-review {
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+  color: white;
+}
+
+.btn-review:hover {
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.navigation-icon {
+  width: 18px;
+  height: 18px;
+  color: white;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.navigation button {
+  border-radius: 6px !important;
+}
+
+button:disabled {
+  cursor: not-allowed !important;
+  pointer-events: none;
+  background-color: #cccccc !important;
+  border-color: #cccccc !important;
+}
+
+.btn-style {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+@media (max-width: 690px) {
+  .page-flex {
+    justify-content: center;
+  }
+
+  .navigation {
+    margin-top: 1rem;
+  }
+}

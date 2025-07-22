@@ -8,12 +8,24 @@ class Api_model extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('ion_auth_model');
+		ini_set('max_execution_time', 3600);
+		ini_set('memory_limit', '512M');
 	}
 
+	/**
+	 * Undocumented function
+	 *
+	 * @param [type] $data
+	 * @param [type] $type
+	 * @return void
+	 */
 	public function save_application($data, $type)
 	{
 		try {
 			$this->db->trans_start();
+
+			$data['application']['updated_at'] = date('Y-m-d H:i:s');
 
 			// Insert team lead
 			$this->db->insert("{$type}_applications", $data['application']);
@@ -29,7 +41,7 @@ class Api_model extends CI_Model
 			if ($type === 'gap') {
 				if (isset($data['team_lead']['certificatePath'])) {
 					$certificate_id = $this->new_certificate($data['team_lead']['certificatePath'], $application_id, $main_application_id);
-	
+
 					if ($certificate_id) {
 						$data['team_lead']['certificate_id'] = $certificate_id;
 					}
@@ -86,6 +98,14 @@ class Api_model extends CI_Model
 		}
 	}
 
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param [type] $data
+	 * @param [type] $type
+	 * @return void
+	 */
 	public function update_application($data, $type)
 	{
 		try {
@@ -95,7 +115,10 @@ class Api_model extends CI_Model
 
 			$this->db->select('id');
 			$this->db->where('application_id', $main_application_id);
+			$this->db->where('user_id', $data['application']['user_id']);
 			$application_id = $this->db->get("{$type}_applications")->row()->id;
+
+			$data['application']['updated_at'] = date('Y-m-d H:i:s');
 
 			// Update Application record
 			$this->db->where(['id' => $application_id]);
@@ -333,7 +356,7 @@ class Api_model extends CI_Model
 		}
 	}
 
-	public function get_applications($id, $type)
+	public function get_applications($id, $type, $user_id = null)
 	{
 
 		try {
@@ -371,6 +394,10 @@ class Api_model extends CI_Model
 
 			if (!is_null($id)) {
 				$this->db->where("a.id", $id);
+			}
+
+			if (!is_null($user_id)) {
+				$this->db->where("a.user_id", $user_id);
 			}
 
 			$query = $this->db->get();
@@ -481,7 +508,7 @@ class Api_model extends CI_Model
 			->num_rows();
 
 		if ($exists > 0) {
-			return -1;
+			return "EMAIL_ALREADY_REGISTERED";
 		}
 
 		$inserted = $this->db->insert('newsletter', ['email' => $email]);
@@ -529,6 +556,7 @@ class Api_model extends CI_Model
 
 			if ($application) {
 				$current_time = date('Y-m-d H:i:s');
+				log_message('error', 'current time: ' . $current_time);
 
 				if (
 					$application->status === 'open' &&
@@ -545,6 +573,26 @@ class Api_model extends CI_Model
 			return false;
 		}
 	}
+
+	public function is_application_ongoing($app_id, $type)
+	{
+		try {
+			$now = date('Y-m-d H:i:s');
+			$query = $this->db
+				->where('application_key', $type)
+				->where('id', $app_id)
+				->where('status', 'open')
+				->where("ends_at >", $now)
+				->get('application_status');
+
+			return $query->num_rows() > 0;
+
+		} catch (Exception $e) {
+			log_message('error', 'Error checking if application is ongoing: ' . $e->getMessage());
+			return false;
+		}
+	}
+
 
 	public function existing_application($data, $id, $type)
 	{
@@ -613,5 +661,154 @@ class Api_model extends CI_Model
 			return false;
 		}
 	}
+
+	public function resend_activation_email_batch($offset = 0, $batch_size = 100)
+	{
+		// $users = $this->db->where('active', 0)
+		// 	->limit($batch_size, $offset)
+		// 	->get('users')
+		// 	->result();
+
+		$users = $this->db->where_in('id', [9275, 9412])->get('users')->result();
+
+		$batch_count = count($users);
+		$batch_queued = 0;
+		$batch_errors = [];
+
+		foreach ($users as $user) {
+			try {
+				$activation_code = $this->ion_auth_model->deactivate($user->id);
+				$this->ion_auth_model->clear_messages();
+				$activation_code = $this->ion_auth_model->activation_code;
+
+				log_message('error', 'Resending activation email to: ' . $user->email . ' with code: ' . $activation_code);
+
+				$email_data = [
+					'identity' => $user->email,
+					'id' => $user->id,
+					'email' => $user->email,
+					'activation' => $activation_code,
+				];
+
+				$this->db->insert('email_queue3', [
+					'user_id' => $user->id,
+					'recipient' => $user->email,
+					'subject' => 'Activate your account',
+					'template_file' => 'activate.tpl.php',
+					'dynamic_data' => json_encode($email_data),
+					'status' => 'pending',
+					'created_at' => date('Y-m-d H:i:s'),
+				]);
+
+				$batch_queued++;
+			} catch (Exception $e) {
+				$batch_errors[] = $user->email;
+			}
+		}
+
+		return [
+			'done' => $batch_count < $batch_size,
+			'processed' => $batch_count,
+			'queued' => $batch_queued,
+			'errors' => $batch_errors
+		];
+	}
+
+	public function send_custom_email($offset = 0, $batch_size = 100)
+	{
+		$query = 'SELECT * 
+	          FROM users 
+	          JOIN email_queue2 ON users.id = email_queue2.user_id 
+	          WHERE email_queue2.status = ? 
+	          LIMIT ? OFFSET ?';
+
+		$users = $this->db->query($query, ['sent', $batch_size, $offset])->result();
+
+		$batch_count = count($users);
+		$batch_queued = 0;
+		$batch_errors = [];
+
+		foreach ($users as $user) {
+			try {
+
+				$email_data = [
+					'firstname' => $user->first_name,
+					'id' => $user->id,
+					'email' => $user->email,
+				];
+
+				$this->db->insert('email_queue2', [
+					'user_id' => $user->id,
+					'recipient' => $user->email,
+					'subject' => 'Your Account is Activated!',
+					'template_file' => 'custom_email.php',
+					'dynamic_data' => json_encode($email_data),
+					'status' => 'pending',
+					'created_at' => date('Y-m-d H:i:s'),
+				]);
+
+				$batch_queued++;
+			} catch (Exception $e) {
+				$batch_errors[] = $user->email;
+			}
+		}
+
+		return [
+			'done' => $batch_count < $batch_size,
+			'processed' => $batch_count,
+			'queued' => $batch_queued,
+			'errors' => $batch_errors
+		];
+	}
+	public function send_custom_confirm_email($offset = 0, $batch_size = 100)
+	{
+		$users = $this->db
+			->select('users.*')
+			->from('users')
+			->join('f4f_applications', 'f4f_applications.user_id = users.id')
+			->where('users.active', 1)
+			->where('users.id !=', 1)
+			->limit($batch_size, $offset)
+			->get()
+			->result();
+
+		$batch_count = count($users);
+		$batch_queued = 0;
+		$batch_errors = [];
+
+		foreach ($users as $user) {
+			try {
+
+				$email_data = [
+					'firstname' => $user->first_name,
+					'id' => $user->id,
+					'email' => $user->email,
+				];
+
+				$this->db->insert('email_queue2', [
+					'user_id' => $user->id,
+					'recipient' => $user->email,
+					'subject' => 'Final Reminder: Kindly Verify Your Farmers for the Future Grant Application',
+					'template_file' => 'custom_confirm_email.php',
+					'dynamic_data' => json_encode($email_data),
+					'status' => 'pending',
+					'created_at' => date('Y-m-d H:i:s'),
+				]);
+
+				$batch_queued++;
+			} catch (Exception $e) {
+				$batch_errors[] = $user->email;
+			}
+		}
+
+		return [
+			'done' => $batch_count < $batch_size,
+			'processed' => $batch_count,
+			'queued' => $batch_queued,
+			'errors' => $batch_errors
+		];
+	}
+
+
 
 }

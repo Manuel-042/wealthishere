@@ -461,6 +461,8 @@ class Ion_auth_model extends CI_Model
 			$user = $this->get_user_by_activation_code($code);
 		}
 
+		log_message('error', 'Activating user with ID: ' . $id . ' and code: ' . $code);
+
 		// Activate if no code is given
 		// Or if a user was found with this code, and that it matches the id
 		if ($code === FALSE || ($user && $user->id === $id))

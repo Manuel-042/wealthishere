@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+date_default_timezone_set('Africa/Lagos');
 
 class Home extends CI_Controller
 {
@@ -44,7 +45,11 @@ class Home extends CI_Controller
             $current_app = $this->api_model->get_current_application($type);
             $current_app_id = $current_app['id'];
 
-            $draft = $this->api_model->get_user_draft($user_id, $current_app_id, $type);
+            //$draft = $this->api_model->get_user_draft($user_id, $current_app_id, $type);
+            $user_application = $this->api_model->get_applications(null, $type, $user_id);
+
+            log_message('error', 'Draft: ' . var_export($user_application, true));
+            
             $user_application_status = $this->api_model->get_user_application_status($user_id, $current_app_id, $type);
 
             $data['user_submission_status'] = "";
@@ -75,9 +80,9 @@ class Home extends CI_Controller
                 $data['current_app_id'] = -1;
             }
 
-            if (!empty($draft)) {
+            if (!empty($user_application)) {
                 $data['current_app_id'] = $current_app_id;
-                $data['form_data'] = $draft[0];
+                $data['form_data'] = $user_application[0];
             } else {
                 $data['current_app_id'] = $current_app_id;
                 $data['form_data'] = [];

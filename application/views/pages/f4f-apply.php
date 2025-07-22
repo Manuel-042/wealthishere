@@ -70,7 +70,7 @@ if ($user_review_status === 'reviewed') {
     <?php
     return;
 }
-if ($user_submission_status === 'completed') {
+/*if ($user_submission_status === 'completed') {
     ?>
     <div style="
         max-width: 600px;
@@ -101,7 +101,7 @@ if ($user_submission_status === 'completed') {
     </div>
     <?php
     return;
-}
+} */
 ?>
 
 <header class="page-hero">
@@ -132,7 +132,7 @@ if ($user_submission_status === 'completed') {
                         <label for="emailAddress" class="form-label">Your Email Address <sup
                                 class="text-danger">*</sup></label>
                         <input type="email" class="form-control" id="emailAddress" name="emailAddress"
-                            value="<?= $user_email ?>" disabled />
+                             value="<?= $user_email ?>" />
                     </div>
                     <div class="col-md-6">
                         <label for="mobileNumber" class="form-label">Your Mobile Number <sup
@@ -766,7 +766,7 @@ if ($user_submission_status === 'completed') {
                 <button type="submit"
                     class="btn btn-primary btn-lg col-md-5 col-5 d-flex justify-content-center align-items-center"
                     id="submit_form">
-                    Submit Application
+                    <?= !empty($form_data) ? 'Confirm/Submit Application' : 'Submit Application' ?>
                 </button>
 
                 <!-- <button type="reset" class="btn btn-outline-secondary btn-sm">
@@ -827,7 +827,7 @@ if ($user_submission_status === 'completed') {
         let stageOfBusiness = <?= json_encode($form_data['business_stage'] ?? ''); ?>;
         if (stageOfBusiness) $("#stageOfBusiness").val(stageOfBusiness).trigger("change");
 
-        let capitalFunding = <?= json_encode($form_data['has_revieved_funding'] ?? ''); ?>;
+        let capitalFunding = <?= json_encode($form_data['has_receieved_funding'] ?? ''); ?>;
         if (capitalFunding) $("#capitalFunding").val(capitalFunding).trigger("change");
 
         let inPartnership = <?= json_encode($form_data['has_partners'] ?? ''); ?>;
