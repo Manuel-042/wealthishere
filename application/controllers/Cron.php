@@ -6,6 +6,9 @@ require_once FCPATH . 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+/**
+ *  @property CI_DB_query_builder db
+ */
 class Cron extends CI_Controller
 {
 
@@ -54,7 +57,7 @@ class Cron extends CI_Controller
         log_message('error', "Deactivation complete. Applications deactivated: " . count($application_ids));
     }
 
-      public function send_email()
+    public function send_email()
     {
         $lock_file = APPPATH . 'cache/email_cron.lock';
 
@@ -84,10 +87,15 @@ class Cron extends CI_Controller
             ->get('email_queue2')
             ->result();
 
+        if (empty($emails)) {
+            log_message('info', 'No pending emails to send.');
+            return;
+        }
+
         foreach ($emails as $email) {
             $mailer = new PHPMailer(true);
             try {
-        
+
                 $data = json_decode($email->dynamic_data, true);
                 $body = $this->load->view('auth/email/' . $email->template_file, $data, true);
 
@@ -131,4 +139,3 @@ class Cron extends CI_Controller
         }
     }
 }
-?>
