@@ -49,7 +49,7 @@ class Home extends CI_Controller
             $user_application = $this->api_model->get_applications(null, $type, $user_id);
 
             log_message('error', 'Draft: ' . var_export($user_application, true));
-            
+
             $user_application_status = $this->api_model->get_user_application_status($user_id, $current_app_id, $type);
 
             $data['user_submission_status'] = "";
@@ -93,6 +93,37 @@ class Home extends CI_Controller
 
         $this->load->view('layout/header', $data);
         $this->load->view("pages/{$type}-apply", $data);
+        $this->load->view('layout/footer', $data);
+    }
+
+    public function support()
+    {
+        $email = '';
+        $phone = '';
+        $fullname = '';
+
+        if ($this->ion_auth->logged_in()) {
+            $user = $this->ion_auth->user()->row();
+            $email = $user->email;
+            $phone = $user->phone;
+            $fullname = "{$user->first_name} {$user->last_name}";
+        };
+
+        $data = [
+            'title' => 'Contact us',
+            'email' => $email,
+            'phone' => $phone,
+            'fullname' => $fullname,
+        ];
+
+        $support = $this->api_model->support_qna();
+
+        if ($support) {
+            $data = array_merge($data, $support);
+        }
+
+        $this->load->view('layout/header', $data);
+        $this->load->view("pages/contact-us", $data);
         $this->load->view('layout/footer', $data);
     }
 }

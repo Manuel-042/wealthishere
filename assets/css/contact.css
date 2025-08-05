@@ -13,8 +13,6 @@
   right: 0;
   bottom: 0;
   /* background: linear-gradient(180deg, rgba(0, 28, 119, 0.45) 47%, rgba(0, 60, 255, 0.1) 78%); */
-
-
 }
 
 .page-hero h1 {
@@ -131,11 +129,84 @@
     gap: 10px; /* Reduce gap */
   }
   .qr-code-item img {
-  width: 120px; /* Adjusted size for two side-by-side */
-  max-width: 100%;
-  height: auto;
-  border: 5px solid var(--primary-color);
-  border-radius: 10px;
-  margin-bottom: 5px;
+    width: 120px; /* Adjusted size for two side-by-side */
+    max-width: 100%;
+    height: auto;
+    border: 5px solid var(--primary-color);
+    border-radius: 10px;
+    margin-bottom: 5px;
+  }
 }
+
+/* Base styling for Select2 to match text input */
+.select2-container--default .select2-selection--single {
+  height: 2.1rem; /* match input height */
+  padding: 1.1rem 1rem;
+  border: 1px solid #ccc; /* input border color */
+  border-radius: 5px; /* match input border radius */
+  font-size: 1rem;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  box-shadow: none;
+}
+
+/* Placeholder & selected text */
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  color: #333;
+  line-height: normal;
+  padding-left: 0;
+}
+
+/* Remove default arrow styling */
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  height: 100%;
+  right: 1rem;
+  top: 0;
+  width: 20px;
+}
+
+/* Arrow positioning */
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow
+  b {
+  border-color: #888 transparent transparent transparent;
+  border-width: 5px 4px 0 4px;
+}
+
+/* Focus state */
+.select2-container--default.select2-container--focus
+  .select2-selection--single {
+  border-color: #3182ce; /* match input focus color */
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3);
+}
+
+/* Dropdown menu */
+.select2-container--default .select2-dropdown {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+}
+
+/* Option items */
+.select2-container--default .select2-results__option {
+  padding: 10px;
+}
+
+/* Selected option */
+.select2-container--default .select2-results__option--selected {
+  background-color: #f0f0f0;
+}
+
+/* Hover state */
+.select2-container--default
+  .select2-results__option--highlighted[aria-selected] {
+  background-color: #e2e8f0;
+  color: #000;
 }

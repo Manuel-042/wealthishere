@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="<?= base_url('/assets/css/global.css') ?>" />
     <link rel="stylesheet" href="<?= base_url('./assets/css/home.css') ?>" />
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
+
     <style>
         .loggedIn {
             border-radius: 50%;
@@ -69,7 +72,7 @@
             color: #ffffff;
             background-color: var(--accent-color) !important;
             border-color: var(--accent-color) !important;
-            padding: 0.375rem 1rem; 
+            padding: 0.375rem 1rem;
             font-family: inherit;
             font-weight: 400;
             display: inline-block;
@@ -160,11 +163,11 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="beneficiariesDropdown">
                                 <li>
-                                    <a class="dropdown-item" href="<?= site_url('gap#past-winners') ?>">GAP
+                                    <a class="dropdown-item" href="<?= site_url('gap-alumni') ?>">GAP
                                         Beneficiaries</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="<?= site_url('f4f#past-winners') ?>">Farmers for the
+                                    <a class="dropdown-item" href="<?= site_url('f4f-alumni') ?>">Farmers for the
                                         Future
                                         Beneficiaries</a>
                                 </li>
@@ -194,7 +197,7 @@
                         <?php
                         if ($this->ion_auth->logged_in()) {
                             $user = $this->ion_auth->user()->row();
-                            ?>
+                        ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle loggedIn" href="#" id="applyDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -220,14 +223,14 @@
                                     </li>
                                 </ul>
                             </li>
-                            <?php
+                        <?php
                         } else {
-                            ?>
+                        ?>
                             <li class="nav-item">
                                 <a href="<?= site_url('login') ?>"
                                     class="nav-link btn btn-warning rounded-pill btn-x-styles">Login</a>
                             </li>
-                            <?php
+                        <?php
                         }
                         ?>
                     </ul>
@@ -238,7 +241,7 @@
         <script>
             //document.getElementById("copyright-year").textContent = new Date().getFullYear();
 
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 const navbarCollapse = document.querySelector(".navbar-collapse");
                 const navbarToggler = document.querySelector(".navbar-toggler");
 
@@ -257,12 +260,12 @@
 
                     // Insert the close button as the first child of the navbar collapse
                     navbarCollapse.insertBefore(closeButton, navbarCollapse.firstChild);
-                    navbarToggler.addEventListener("click", function () {
+                    navbarToggler.addEventListener("click", function() {
                         navbarToggler.classList.add("d-none");
                     });
 
                     // Close the navbar when the close button is clicked
-                    closeButton.addEventListener("click", function () {
+                    closeButton.addEventListener("click", function() {
                         navbarCollapse.classList.remove("show");
                         navbarToggler.classList.add("collapsed");
                         navbarToggler.setAttribute("aria-expanded", false);
@@ -272,5 +275,4 @@
                     // Toggle the navbar when the toggler is clicked
                 }
             });
-
         </script>

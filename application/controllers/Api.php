@@ -13,6 +13,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property Ion_auth ion_auth
  * @property Api_model api_model
  * @property CI_DB db
+ * @property CI_Form_validation $form_validation
  */
 class Api extends CI_Controller
 {
@@ -22,6 +23,7 @@ class Api extends CI_Controller
         parent::__construct();
         $this->load->library('session');
         $this->load->library('ion_auth');
+        $this->load->library('form_validation');
         $this->load->model('api_model');
         $this->load->helper(['respond_helper', 'email_helper']);
 
@@ -102,7 +104,7 @@ class Api extends CI_Controller
             $requiredTeamLeadCheck = $this->validateTeamLead($data['team_lead']);
 
             if (!$requiredTeamLeadCheck['status']) {
-                return respond(400, $requiredTeamLeadCheck['errorMsg'], 'error', );
+                return respond(400, $requiredTeamLeadCheck['errorMsg'], 'error');
             }
 
             // Validate Business Info
@@ -117,12 +119,12 @@ class Api extends CI_Controller
             $businessCheck = $this->validateBusiness($data['business']);
 
             if (!$businessCheck['status']) {
-                return respond(400, $businessCheck['errorMsg'], 'error', );
+                return respond(400, $businessCheck['errorMsg'], 'error');
             }
 
             // Validate Team Members
             if (!$this->validateTeamMembers($data['team_members'])) {
-                return respond(400, 'Team members info invalid or exceeds maximum allowed (3).', 'error', );
+                return respond(400, 'Team members info invalid or exceeds maximum allowed (3).', 'error');
             }
 
             $data['application']['submission_status'] = 'completed';
@@ -505,47 +507,111 @@ class Api extends CI_Controller
         } else {
             respond(500, 'An Error occured during registration, Please try again or contact support', "error");
         }
-
     }
 
     public function contact_us()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Get form data
-            $input = json_decode(file_get_contents("php://input"), true);
+        $this->form_validation->set_rules('fullName', 'Full Name', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('phone', 'Phone', 'required|regex_match[/^(\+?[1-9]\d{0,3})?[0-9]{7,15}$/]', array('regex_match' => 'Please enter a valid phone number'));
+        $this->form_validation->set_rules('category', 'Category', 'required');
+        // $this->form_validation->set_rules('question', 'Question', 'required');
 
-            if (!$input) {
-                respond(400, 'Invalid input data', 'error');
-                exit;
-            }
-
-            // Sanitize and extract values
-            $fullName = htmlspecialchars($input['fullName'] ?? '');
-            $email = htmlspecialchars($input['email'] ?? '');
-            $phone = htmlspecialchars($input['phone'] ?? '');
-            $message = htmlspecialchars($input['message'] ?? '');
-
-            // Validate email
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                respond(400, 'Invalid Email', 'error');
-                exit;
-            }
-
-            // Email configuration
-            $to = $this->config->item('contact_email', 'ion_auth');
-            $subject = "New Contact Form Submission from " . $fullName;
-
-
-            $email_response = send_custom_email($to, $subject, 'auth/email/contact_us', ['fullName' => $fullName, 'email' => $email, 'phone' => $phone, 'message' => $message]);
-
-            // Send email
-            if ($email_response['status'] == 200) {
-                respond(200, 'Email sent succesfully');
-            } else {
-                respond(500, 'Failed to send email', 'error');
-            }
+        if ($this->form_validation->run() == FALSE) {
+            log_message('error', 'Validation errors: ' . var_export($this->form_validation->error_array(), true));
+            $this->session->set_flashdata('error', "Form Validation error");
+            $this->session->set_flashdata('old_input', $this->input->post());
+            redirect('contact-us');
         } else {
-            respond(405, 'Method not allowed', 'error');
+            $fullName       = $this->input->post('fullName', true) ?? null;
+            $email          = $this->input->post('email', true) ?? null;
+            $phone          = $this->input->post('phone', true) ?? null;
+            $questionAnswer = $this->input->post('question', true) ?? null;
+            $question       = $this->input->post('selected_question', true) ?? null;
+            $customMessage  = $this->input->post('message', true) ?? null;
+            $category_id    = $this->input->post('category', true) ?? null;
+            $question_id    = $this->input->post('question_id', true) ?? null;
+
+            log_message("error", "category id: {$category_id}, question id: {$question_id}");
+
+            $isOthers = ($category_id == '6' || $question_id == '18');
+            $responseMessage = $isOthers ? "Others" : $questionAnswer;
+
+            $support_log = [
+                'name' => $fullName,
+                'email' => $email,
+                'category_id' => $category_id,
+                'question_id' => $question_id,
+                'custom_message' => $customMessage
+            ];
+
+            $log = $this->api_model->log_support($support_log);
+
+            if (!$log) {
+                $this->session->set_flashdata('error', 'An Error occured while logging support');
+                $this->session->set_flashdata('old_input', $this->input->post());
+                redirect('contact-us');
+            }
+
+            $user_id = $this->ion_auth->get_user_id() ?? 0;
+
+            $email_data = [
+                'fullname' => $fullName,
+                'phone' => $phone,
+                'question' => $question,
+                'answer' => $responseMessage
+            ];
+
+            log_message('error', 'Email Data: ' . var_export($email_data, true));
+
+            $subject = 'Thank You for Contacting the YEEP Team!';
+
+            $data2 = [
+                'user_id' => $user_id,
+                'recipient' => $email,
+                'subject' => $subject,
+                'template_file' => 'support_email.php',
+                'dynamic_data' => json_encode($email_data),
+                'status' => 'pending',
+                'created_at' => date('Y-m-d H:i:s'),
+            ];
+
+            // save to DB queue, etc.
+            $response = $this->api_model->queue_support_email($data2);
+
+            if (!$response) {
+                $this->session->set_flashdata('error', 'An error occured while queing support email');
+                $this->session->set_flashdata('old_input', $this->input->post());
+                redirect('contact-us');
+            }
+
+            if ($isOthers) {
+                $subject2 = 'New Contact Form Submission!';
+                $email_data2 = ['fullName' => $fullName, 'email' => $email, 'phone' => $phone, 'message' => $customMessage];
+                $to = $this->config->item('contact_email', 'ion_auth');
+
+                $data3 = [
+                    'user_id' => $user_id,
+                    'recipient' => $to,
+                    'subject' => $subject2,
+                    'template_file' => 'contact_us.php',
+                    'dynamic_data' => json_encode($email_data2),
+                    'status' => 'pending',
+                    'created_at' => date('Y-m-d H:i:s'),
+                ];
+
+                // save to DB queue, etc.
+                $response2 = $this->api_model->queue_support_email($data3);
+
+                if (!$response2) {
+                    $this->session->set_flashdata('error', 'An error occured while queing support email');
+                    $this->session->set_flashdata('old_input', $this->input->post());
+                    redirect('contact-us');
+                }
+            }
+
+            $this->session->set_flashdata("success", "Your message has been sent successfully. Keep an eye on your email, we'll be in touch soon.");
+            redirect('contact-us');
         }
     }
 
@@ -582,6 +648,7 @@ class Api extends CI_Controller
             ->set_content_type('application/json')
             ->set_output(json_encode($result));
     }
+
     public function send_custom_confirm_email()
     {
         $offset = (int) $this->input->get('offset');
@@ -635,5 +702,12 @@ class Api extends CI_Controller
         $this->load->view('layout/header', $data);
         $this->load->view('pages/gap-application', $data);
         $this->load->view('layout/footer');
+    }
+
+    public function support_questions()
+    {
+        $category_id = $this->input->get('category_id');
+        $questions = $this->api_model->get_by_category($category_id);
+        return respond(200, $questions, 'message');
     }
 }

@@ -195,7 +195,6 @@ class Api_model extends CI_Model
 			}
 
 			return true;
-
 		} catch (Exception $e) {
 			$this->db->trans_rollback();
 			log_message('error', "Database Error: Exception while updating {$type} application: " . $e->getMessage());
@@ -462,7 +461,6 @@ class Api_model extends CI_Model
 			}
 
 			return array_values($grouped);
-
 		} catch (Exception $e) {
 			log_message('error', 'An error occured while getting applications ' . $e->getMessage());
 			return false;
@@ -556,7 +554,7 @@ class Api_model extends CI_Model
 
 			if ($application) {
 				$current_time = date('Y-m-d H:i:s');
-				log_message('error', 'current time: ' . $current_time);
+				// log_message('error', 'current time: ' . $current_time);
 
 				if (
 					$application->status === 'open' &&
@@ -567,7 +565,6 @@ class Api_model extends CI_Model
 			}
 
 			return 'closed';
-
 		} catch (Exception $e) {
 			log_message('error', 'An error occurred while getting application status: ' . $e->getMessage());
 			return false;
@@ -586,7 +583,6 @@ class Api_model extends CI_Model
 				->get('application_status');
 
 			return $query->num_rows() > 0;
-
 		} catch (Exception $e) {
 			log_message('error', 'Error checking if application is ongoing: ' . $e->getMessage());
 			return false;
@@ -611,7 +607,6 @@ class Api_model extends CI_Model
 				log_message('error', 'Existing Application Does Not Exist | New Application');
 				return false;
 			}
-
 		} catch (Exception $e) {
 			log_message('error', 'An error occurred while checking for existing certificate: ' . $e->getMessage());
 			return false;
@@ -634,7 +629,6 @@ class Api_model extends CI_Model
 				log_message('error', 'Existing Certificate Does Not Exist | New Certificate');
 				return false;
 			}
-
 		} catch (Exception $e) {
 			log_message('error', 'An error occurred while checking for exisitng certficiate: ' . $e->getMessage());
 			return false;
@@ -655,7 +649,6 @@ class Api_model extends CI_Model
 			} else {
 				return false;
 			}
-
 		} catch (Exception $e) {
 			log_message('error', 'An error occurred while getting application end date: ' . $e->getMessage());
 			return false;
@@ -809,6 +802,92 @@ class Api_model extends CI_Model
 		];
 	}
 
+	public function support_qna()
+	{
+		try {
+			$categories = $this->db->get('support_categories')->result();
+			$qna = $this->db
+				->select('support_questions.*, support_categories.name as category_name')
+				->from('support_questions')
+				->join('support_categories', 'support_questions.category_id = support_categories.id')
+				->get()
+				->result();
 
+			usort($categories, function ($a, $b) {
+				return strcmp($a->name, $b->name);
+			});
 
+			usort($qna, function ($a, $b) {
+				return strcmp($a->question, $b->question);
+			});
+
+			return [
+				'categories' => $categories ?: [],
+				'qna'        => $qna ?: [],
+			];
+		} catch (Exception $e) {
+			log_message('error', 'Failed to fetch support QnA: ' . $e->getMessage());
+			return [
+				'categories' => [],
+				'qna'        => [],
+				'error'      => 'An unexpected error occurred. Please try again later.'
+			];
+		}
+	}
+
+	public function get_by_category($category_id)
+	{
+		try {
+			$data = $this->db
+				->select('id, question, answer')
+				->from('support_questions')
+				->where('category_id', $category_id)
+				->or_where('question', 'Others')
+				->get()
+				->result_array();
+
+			usort($data, function ($a, $b) {
+				return strcmp($a['question'], $b['question']);
+			});
+
+			return $data;
+		} catch (Exception $e) {
+			log_message('error', 'Failed to fetch questions and answer: ' . $e->getMessage());
+			return false;
+		}
+	}
+
+	public function log_support($data)
+	{
+		try {
+			$this->db->insert('support_requests', $data);
+
+			if ($this->db->affected_rows() <= 0) {
+				log_message('error', "Database Error: Failed to insert support: " . json_encode($this->db->error()));
+				return false;
+			}
+
+			return true;
+		} catch (Exception $e) {
+			log_message('error', 'Failed to log support: ' . $e->getMessage());
+			return false;
+		}
+	}
+
+	public function queue_support_email($data2)
+	{
+		try {
+			$this->db->insert('email_queue2', $data2);
+
+			if ($this->db->affected_rows() <= 0) {
+				log_message('error', "Database Error: Failed to insert support: " . json_encode($this->db->error()));
+				return false;
+			}
+
+			return true;
+		} catch (Exception $e) {
+			log_message('error', 'Failed to log support: ' . $e->getMessage());
+			return false;
+		}
+	}
 }

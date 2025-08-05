@@ -291,69 +291,6 @@
   display: inline-block;
 }
 
-.community-banner {
-  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.community-banner:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-}
-
-.community-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1.1rem 0;
-  color: white;
-  text-decoration: none;
-  position: relative;
-}
-
-.community-link::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0);
-  transition: background 0.3s ease;
-}
-
-.community-link:hover::before {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.whatsapp-icon {
-  width: 24px;
-  height: 24px;
-  filter: brightness(0) invert(1);
-  transition: transform 0.3s ease;
-  z-index: 1;
-}
-
-.community-link:hover .whatsapp-icon {
-  transform: scale(1.1);
-}
-
-.community-text {
-  z-index: 1;
-  font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: 0.3px;
-}
-
-/* .community-subtext {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  font-weight: 400;
-} */
-
 @media (max-width: 768px) {
   .winners-container {
     grid-template-columns: 1fr;

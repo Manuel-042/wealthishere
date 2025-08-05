@@ -19,25 +19,47 @@
                             <h4 class="mb-4 text-center section-title" style="color: var(--primary-color)">
                                 Send Us A Message
                             </h4>
-                            <form id="contactForm" class="row contact-form flex-wrap justify-content-between">
+                            <form method="post" action="<?= base_url("api/contact_us") ?>" id="contactForm" class="row contact-form flex-wrap justify-content-between">
                                 <div class="mb-4 col-12 col-lg-4">
                                     <label for="fullName" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="fullName" placeholder="Your full name"
-                                        required />
+                                    <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Your full name"
+                                        required value="<?= $fullname ?>" />
                                 </div>
                                 <div class="mb-4 col-12 col-lg-4">
                                     <label for="email" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="email" placeholder="name@example.com"
-                                        required />
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com"
+                                        required value="<?= $email ?>" />
                                 </div>
                                 <div class="mb-4 col-12 col-lg-4">
                                     <label for="phone" class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" id="phone" placeholder="Your phone number" />
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your phone number" required value="<?= $phone ?>" />
                                 </div>
-                                <div class="mb-4 col-12">
-                                    <label for="message" class="form-label">Message Us</label>
-                                    <textarea class="form-control" id="message" rows="5" placeholder="Your message"
-                                        required></textarea>
+
+                                <div class="col-md-6">
+                                    <label for="category" class="form-label">Category</label>
+                                    <select class="form-select" id="category" name="category" required>
+                                        <option></option>
+                                        <?php
+                                        foreach ($categories as $category) {
+                                            echo "<option value='{$category->id}'>{$category->name}</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6" id="question_cont">
+                                    <label for="question" class="form-label">Question</label>
+                                    <select class="form-select" id="question" name="question">
+                                        <option></option>
+                                    </select>
+                                </div>
+
+                                <input type="hidden" id="question_id" name="question_id" />
+                                <input type="hidden" name="selected_question" id="selectedQuestion">
+
+                                <div class="my-4 col-12 d-none" id="custom_message">
+                                    <label for="message" class="form-label">Type in your message</label>
+                                    <textarea class="form-control" id="message" name="message" rows="5" placeholder="Your message"></textarea>
                                 </div>
                                 <div class="mb-4 mt-5 col-12 text-center">
                                     <button type="submit" class="btn btn-primary mx-auto rounded-pill" style="
@@ -127,47 +149,120 @@
     </section>
 </main>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<?php if ($this->session->flashdata('success')): ?>
+    <script>
+        toastr["success"]("<?= $this->session->flashdata('success') ?>");
+    </script>
+<?php elseif ($this->session->flashdata('error')): ?>
+    <script>
+        toastr["error"]("<?= $this->session->flashdata('error') ?>");
+    </script>
+<?php endif; ?>
+
 <script>
-    document.getElementById("contactForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
+    $(document).ready(function() {
+        $("#category").select2({
+            placeholder: "Please select the category your question belongs to.",
+            allowClear: true
+        })
 
-        const formData = {
-            fullName: document.getElementById('fullName').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            message: document.getElementById('message').value,
-        };
+        $('#question').select2({
+            placeholder: "Select a question...",
+            allowClear: true
+        });
 
-        try {
-            const response = await fetch("<?= base_url('api/contact_us') ?>", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            });
+        let currentCategory = null;
 
-            const result = await response.json();
+        $("#category").on("change", function() {
+            currentCategory = $(this).val();
 
-            if (response.ok) {
-                Swal.fire({
-                    title: "Message sent successfully!",
-                    icon: "success",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        e.target.reset();
-                        // window.location.href = `${baseUrl}/index`;
-                    }
-                });
+            if (currentCategory == '6') {
+                $("#custom_message").removeClass("d-none");
+                $("#message").prop("required", true);
+                $("#question_cont").addClass("d-none");
+                $("#question").prop("required", false);
             } else {
-                throw new Error(result.error || 'Failed to send message');
+                $("#question_cont").removeClass("d-none");
+                $("#question").prop("required", true);
+                $("#custom_message").addClass("d-none");
+                $("#message").prop("required", false);
             }
-        } catch (error) {
-            Swal.fire({
-                title: "Error sending message",
-                text: error.error || "Please try again later",
-                icon: "error",
+
+            $('#question').empty();
+
+            // Fetch questions for the selected category
+            $.ajax({
+                url: "<?= base_url('api/support_questions') ?>",
+                data: {
+                    category_id: currentCategory
+                },
+                dataType: "json",
+                success: function(data) {
+                    const questions = data.message || [];
+
+                    $('#question').append(new Option("Select a question...", "", true, true)).trigger('change');
+
+                    questions.forEach(function(item) {
+                        const option = new Option(item.question, item.answer, false, false);
+                        $(option).attr('data-id', item.id);
+                        $(option).attr('data-question', item.question);
+                        $('#question').append(option);
+                    });
+
+                    //$('#question').append(new Option("Other", "other", false, false));
+                },
+                error: function(err) {
+                    console.error("Error loading questions:", err);
+                }
             });
-        }
+        });
+
+        $("#question").on("change", function() {
+            let value = $(this).val();
+            const selectedOption = $(this).find(':selected');
+            const questionId = selectedOption.data('id');
+            const question = selectedOption.data('question');
+            $('#question_id').val(questionId);
+            $('#selectedQuestion').val(question);
+
+            if (value === 'Others') {
+                if ($("#custom_message").hasClass("d-none")) {
+                    $("#custom_message").removeClass("d-none");
+                    $("#message").prop("required", true);
+                }
+            } else {
+                if (!$("#custom_message").hasClass("d-none") && $("#category").val() !== '6') {
+                    $("#custom_message").addClass("d-none");
+                    $("#message").prop("required", false);
+                }
+            }
+        })
+
+        $("#phone").on("keypress paste",
+            function(e) {
+                let allowedChars = "+0123456789";
+
+                if (e.type === "keypress") {
+                    let char = String.fromCharCode(e.which);
+                    if (!allowedChars.includes(char)) {
+                        e.preventDefault();
+                    }
+                }
+
+                // Handle paste events:
+                else if (e.type === "paste") {
+                    // Get the pasted text (works in modern browsers)
+                    let pastedData = e.originalEvent.clipboardData.getData("text");
+                    // If the pasted text contains any characters not in allowedChars, prevent the paste.
+                    if (!/^[0-9]+$/.test(pastedData)) {
+                        e.preventDefault();
+                    }
+                }
+            }
+        );
+
     });
 </script>

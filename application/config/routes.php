@@ -65,9 +65,9 @@ $route['api/gap-applications/new/(:any)'] = 'api/gap_applications/$1';
 $route['f4f-apply'] = 'home/apply/f4f';
 $route['gap-apply'] = 'home/apply/gap';
 
+$route['contact-us'] = 'home/support';
 
 $route['api/f4f-application/(:num)'] = 'api/f4f_application/$1';
-
 
 $route['api/subscribe'] = 'api/newsletter';
 

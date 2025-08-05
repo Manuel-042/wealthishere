@@ -9,11 +9,8 @@
 if ($application_status === 'closed' || !$application_start) {
     ?>
     <div style="
-        max-width: 600px;
+        max-width: 400px;
         margin: 40px auto;
-        padding: 20px 30px;
-        background-color: #fef3c7;
-        border: 2px solid #f59e0b;
         border-radius: 12px;
         text-align: center;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -23,7 +20,7 @@ if ($application_status === 'closed' || !$application_start) {
         align-items: center;
         justify-content: center;
     ">
-        <div style="
+        <!-- <div style="
             font-size: 24px;
             margin-bottom: 8px;
         ">⚠️</div>
@@ -33,7 +30,8 @@ if ($application_status === 'closed' || !$application_start) {
             color: #92400e;
             margin: 0;
             line-height: 1.4;
-        ">There's no ongoing application</p>
+        ">There's no ongoing application</p> -->
+        <img src="<?= base_url('assets/images/f4f-apply-closed.jpg') ?>" alt="Application Closed" style="max-width: 100%; height: auto;">
     </div>
     <?php
     return;
@@ -766,7 +764,7 @@ if ($user_review_status === 'reviewed') {
                 <button type="submit"
                     class="btn btn-primary btn-lg col-md-5 col-5 d-flex justify-content-center align-items-center"
                     id="submit_form">
-                    <?= !empty($form_data) ? 'Confirm/Submit Application' : 'Submit Application' ?>
+                    Submit Application
                 </button>
 
                 <!-- <button type="reset" class="btn btn-outline-secondary btn-sm">
@@ -827,7 +825,7 @@ if ($user_review_status === 'reviewed') {
         let stageOfBusiness = <?= json_encode($form_data['business_stage'] ?? ''); ?>;
         if (stageOfBusiness) $("#stageOfBusiness").val(stageOfBusiness).trigger("change");
 
-        let capitalFunding = <?= json_encode($form_data['has_receieved_funding'] ?? ''); ?>;
+        let capitalFunding = <?= json_encode($form_data['has_received_funding'] ?? ''); ?>;
         if (capitalFunding) $("#capitalFunding").val(capitalFunding).trigger("change");
 
         let inPartnership = <?= json_encode($form_data['has_partners'] ?? ''); ?>;
