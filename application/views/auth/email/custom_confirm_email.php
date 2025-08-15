@@ -21,7 +21,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td align="left" style="border-bottom:1px solid #cccccc; padding-bottom:10px;">
-                                        <img src="<?= base_url('assets/images/nav_logo.png') ?>" alt="BAT Logo"
+                                        <img src="<?= base_url('assets/images/nav_logo_blue.png') ?>" alt="BAT Logo"
                                             width="150" style="display:block; height:auto;">
                                     </td>
                                 </tr>

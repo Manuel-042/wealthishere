@@ -21,7 +21,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td align="left" style="border-bottom:1px solid #cccccc; padding-bottom:10px;">
-                                        <img src="<?= base_url('assets/images/nav_logo.png') ?>" alt="BAT Logo"
+                                        <img src="<?= base_url('assets/images/nav_logo_blue.png') ?>" alt="BAT Logo"
                                             width="150" style="display:block; height:auto;">
                                     </td>
                                 </tr>
@@ -36,17 +36,17 @@
                                         Thank you for reaching out to the Youth Empowerment in Agriculture Program (YEEP) team via
                                         <a href="<?= base_url() ?>"><?= base_url() ?></a>.<br><br>
 
-                                        Your question: <?= $question ?>. <br><br>
+                                        Your Enquiry: <?= $question ?>. <br><br>
 
                                         <?php if ($answer !== "Others"): ?>
-                                            Answer: <?= $answer ?><br><br>
+                                            Our Response: <?= $answer ?><br><br>
                                         <?php else: ?>
                                             Your enquiry has been received and is being reviewed by our support team.<br><br>
                                         <?php endif; ?>
 
                                         For common questions, you may consult our YEEP Support Guide.<br>
 
-                                        <a href="<?= base_url("assets/files/YEEP Support Guide Clean.docx")?>" target="_blank">Click to view the support guide</a><br><br>
+                                        <a href="<?= base_url("assets/files/YEEP Support Guide.pdf")?>" target="_blank">Click to view the support guide</a><br><br>
 
                                         <?php if ($answer == "Others"): ?>
                                             A member of our team will respond within 48 hours.<br><br>

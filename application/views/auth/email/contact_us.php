@@ -10,7 +10,7 @@
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; margin: auto; background-color: #ffffff; border: 1px solid #ddd; text-align:left;">
         <tr>
             <td align="center" style="padding-bottom: 20px;">
-                <img src="<?= base_url('assets/images/nav_logo.png'); ?>" alt="BATNF Logo" style="height: 60px;">
+                <img src="<?= base_url('assets/images/nav_logo_blue.png'); ?>" alt="BATNF Logo" style="height: 60px;">
             </td>
         </tr>
 

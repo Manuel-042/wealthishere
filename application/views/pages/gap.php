@@ -300,12 +300,12 @@
     <section id="past-winners" class="section">
         <div class="mx-auto">
             <h2 class="section-title">Past Winners</h2>
-            <div class="d-flex justify-content-center mb-4 flex-wrap">
+            <!-- <div class="d-flex justify-content-center mb-4 flex-wrap">
                 <div class="col-6 mx-auto mb-1 mb-lg-4">
-                    <!-- <label for="year-select" class="form-label me-3 align-self-center mb-2 mb-md-0">Choose A Year:</label> -->
+                    <label for="year-select" class="form-label me-3 align-self-center mb-2 mb-md-0">Choose A Year:</label>
                     <select class="form-select w-100 text-center" id="year-select"></select>
                 </div>
-            </div>
+            </div> -->
             <div id="winners-container" class="winners-carousel"></div>
         </div>
     </section>
@@ -325,4 +325,4 @@
 </main>
 
 <script src="<?= base_url('assets/js/script.js') ?>"></script>
-<script src="<?= base_url('assets/js/gap.js') ?>"></script>
+<script src="<?= base_url('assets/js/gap.js') ?>" type="module"></script>

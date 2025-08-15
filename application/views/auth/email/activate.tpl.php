@@ -16,7 +16,7 @@
 					style="background-color:#ffffff; border-radius:10px; padding:30px; box-shadow:0 5px 15px rgba(0,0,0,0.1); text-align:left;">
 					<tr>
 						<td align="left" style="padding-bottom: 20px;">
-							<img src="<?= base_url('assets/images/nav_logo_dark.png'); ?>" alt="BATNF Logo"
+							<img src="<?= base_url('assets/images/nav_logo_blue.png'); ?>" alt="BATNF Logo"
 								style="height: 60px;">
 						</td>
 					</tr>

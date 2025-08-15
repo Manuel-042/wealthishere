@@ -312,4 +312,4 @@
 </main>
 
 <script src="<?= base_url('assets/js/script.js') ?>"></script>
-<script src="<?= base_url('assets/js/f4f.js') ?>"></script>
+<script src="<?= base_url('assets/js/f4f.js') ?>" type="module"></script>

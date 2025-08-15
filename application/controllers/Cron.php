@@ -88,7 +88,7 @@ class Cron extends CI_Controller
             ->result();
 
         if (empty($emails)) {
-            log_message('info', 'No pending emails to send.');
+            log_message('error', 'No pending emails to send.');
             return;
         }
 
@@ -139,3 +139,4 @@ class Cron extends CI_Controller
         }
     }
 }
+?>

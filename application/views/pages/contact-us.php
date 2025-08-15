@@ -19,20 +19,23 @@
                             <h4 class="mb-4 text-center section-title" style="color: var(--primary-color)">
                                 Send Us A Message
                             </h4>
+
+
+
                             <form method="post" action="<?= base_url("api/contact_us") ?>" id="contactForm" class="row contact-form flex-wrap justify-content-between">
                                 <div class="mb-4 col-12 col-lg-4">
                                     <label for="fullName" class="form-label">Full Name</label>
                                     <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Your full name"
-                                        required value="<?= $fullname ?>" />
+                                        required value="<?= !empty($old_input['fullName']) ? $old_input['fullName'] : $fullname; ?>" />
                                 </div>
                                 <div class="mb-4 col-12 col-lg-4">
                                     <label for="email" class="form-label">Email address</label>
                                     <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com"
-                                        required value="<?= $email ?>" />
+                                        required value="<?= !empty($old_input['email']) ? $old_input['email'] : $email; ?>" />
                                 </div>
                                 <div class="mb-4 col-12 col-lg-4">
                                     <label for="phone" class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your phone number" required value="<?= $phone ?>" />
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your phone number" required value="<?= !empty($old_input['phone']) ? $old_input['phone'] : $phone; ?>" />
                                 </div>
 
                                 <div class="col-md-6">
@@ -54,12 +57,14 @@
                                     </select>
                                 </div>
 
-                                <input type="hidden" id="question_id" name="question_id" />
-                                <input type="hidden" name="selected_question" id="selectedQuestion">
+                                <input type="hidden" id="question_id" name="question_id" value="<?= !empty($old_input['question_id']) ? $old_input['question_id'] : ''; ?>" />
+                                <input type="hidden" name="selected_question" id="selectedQuestion" value="<?= !empty($old_input['selected_question']) ? $old_input['selected_question'] : ''; ?>" />
 
                                 <div class="my-4 col-12 d-none" id="custom_message">
                                     <label for="message" class="form-label">Type in your message</label>
-                                    <textarea class="form-control" id="message" name="message" rows="5" placeholder="Your message"></textarea>
+                                    <textarea class="form-control" id="message" name="message" rows="5" placeholder="Your message">
+                                        <?= htmlspecialchars($old_input['message'] ?? '') ?>
+                                    </textarea>
                                 </div>
                                 <div class="mb-4 mt-5 col-12 text-center">
                                     <button type="submit" class="btn btn-primary mx-auto rounded-pill" style="
@@ -128,6 +133,22 @@
                                         </div>
                                     </a>
                                 </div>
+
+                                <div class='community' style="margin-top: 2rem;">
+                                    <h4 style="color: var(--primary-color)">
+                                        Scan the QR code below to join our Whatsapp community
+                                    </h4>
+                                    <div class="qr-code-container justify-content-around">
+                                        <a href="https://chat.whatsapp.com/KuHEDEC8PoxEwDaxCknPZN"
+                                            target="_blank">
+                                            <div class="qr-code-item">
+                                                <img src="<?= base_url('assets/images/alumni-community-cropped.png') ?>"
+                                                    alt="iOS App QR Code" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
                                 <div class="social-media-icons">
                                     <a href="https://www.instagram.com/batnfoundation/" target="_blank"
                                         aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -160,86 +181,105 @@
     <script>
         toastr["error"]("<?= $this->session->flashdata('error') ?>");
     </script>
+<?php elseif ($this->session->flashdata('validation_errors')): ?>
+    <?php foreach ($this->session->flashdata('validation_errors') as $field => $error): ?>
+        <script>
+            toastr["error"]("<?= $error ?>");
+        </script>
+    <?php endforeach; ?>
 <?php endif; ?>
 
 <script>
-    $(document).ready(function() {
-        $("#category").select2({
-            placeholder: "Please select the category your question belongs to.",
-            allowClear: true
-        })
+    $(document).ready(async function() {
+        await setupSelect2();
+        await populateInitialValues();
+        registerEventHandlers();
+    });
 
-        $('#question').select2({
-            placeholder: "Select a question...",
+    function setupSelect2() {
+        $("#category").select2({
+            placeholder: "Please select the category",
             allowClear: true
         });
 
-        let currentCategory = null;
+        $("#question").select2({
+            placeholder: "Select a question",
+            allowClear: true
+        });
+    }
 
-        $("#category").on("change", function() {
-            currentCategory = $(this).val();
+    async function populateInitialValues() {
+        const category = <?= json_encode($old_input['category'] ?? ''); ?>;
+        const question = <?= json_encode($old_input['question'] ?? ''); ?>;
 
-            if (currentCategory == '6') {
-                $("#custom_message").removeClass("d-none");
-                $("#message").prop("required", true);
-                $("#question_cont").addClass("d-none");
-                $("#question").prop("required", false);
-            } else {
-                $("#question_cont").removeClass("d-none");
-                $("#question").prop("required", true);
-                $("#custom_message").addClass("d-none");
-                $("#message").prop("required", false);
-            }
+        if (category) {
+            $("#category").val(category).trigger("change");
 
-            $('#question').empty();
+            // Wait for questions to load before selecting one
+            await loadQuestionsForCategory(category, question);
+        }
+    }
 
-            // Fetch questions for the selected category
+    function loadQuestionsForCategory(categoryId, selectedAnswer = null) {
+        return new Promise((resolve, reject) => {
             $.ajax({
                 url: "<?= base_url('api/support_questions') ?>",
                 data: {
-                    category_id: currentCategory
+                    category_id: categoryId
                 },
                 dataType: "json",
                 success: function(data) {
                     const questions = data.message || [];
+                    const $q = $('#question');
+                    $q.empty().append(new Option("Select a question...", "", true, true));
 
-                    $('#question').append(new Option("Select a question...", "", true, true)).trigger('change');
-
-                    questions.forEach(function(item) {
-                        const option = new Option(item.question, item.answer, false, false);
-                        $(option).attr('data-id', item.id);
-                        $(option).attr('data-question', item.question);
-                        $('#question').append(option);
+                    questions.forEach(item => {
+                        const opt = new Option(item.question, item.answer, false, false);
+                        $(opt).attr('data-id', item.id);
+                        $(opt).attr('data-question', item.question);
+                        $q.append(opt);
                     });
 
-                    //$('#question').append(new Option("Other", "other", false, false));
+                    if (selectedAnswer) {
+                        $q.val(selectedAnswer).trigger("change");
+                    }
+
+                    resolve();
                 },
                 error: function(err) {
                     console.error("Error loading questions:", err);
+                    reject(err);
                 }
             });
         });
+    }
+
+    function registerEventHandlers() {
+        $("#category").on("change", async function() {
+            const catId = $(this).val();
+
+            if (catId === '6') {
+                showCustomMessageOnly();
+            } else {
+                showQuestionDropdown();
+                await loadQuestionsForCategory(catId); // repopulate
+            }
+        });
 
         $("#question").on("change", function() {
-            let value = $(this).val();
-            const selectedOption = $(this).find(':selected');
-            const questionId = selectedOption.data('id');
-            const question = selectedOption.data('question');
-            $('#question_id').val(questionId);
-            $('#selectedQuestion').val(question);
+            const $opt = $(this).find(':selected');
+            const value = $(this).val();
+            $('#question_id').val($opt.data('id'));
+            $('#selectedQuestion').val($opt.data('question'));
 
-            if (value === 'Others') {
-                if ($("#custom_message").hasClass("d-none")) {
-                    $("#custom_message").removeClass("d-none");
-                    $("#message").prop("required", true);
-                }
+            if (value === 'Others' || $("#category").val() === '6') {
+                $("#custom_message").removeClass("d-none");
+                $("#message").prop("required", true);
             } else {
-                if (!$("#custom_message").hasClass("d-none") && $("#category").val() !== '6') {
-                    $("#custom_message").addClass("d-none");
-                    $("#message").prop("required", false);
-                }
+                $("#custom_message").addClass("d-none");
+                $("#message").prop("required", false);
             }
-        })
+        });
 
         $("#phone").on("keypress paste",
             function(e) {
@@ -263,6 +303,19 @@
                 }
             }
         );
+    }
 
-    });
+    function showCustomMessageOnly() {
+        $("#custom_message").removeClass("d-none");
+        $("#message").prop("required", true);
+        $("#question_cont").addClass("d-none");
+        $("#question").prop("required", false);
+    }
+
+    function showQuestionDropdown() {
+        $("#custom_message").addClass("d-none");
+        $("#message").prop("required", false);
+        $("#question_cont").removeClass("d-none");
+        $("#question").prop("required", true);
+    }
 </script>

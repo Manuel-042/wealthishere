@@ -16,7 +16,7 @@
                     style="background-color:#ffffff; border-radius:8px; padding: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
                     <tr>
                         <td align="left" style="padding-bottom: 20px;">
-                            <img src="<?= base_url('assets/images/nav_logo.png') ?>" alt="BATNF | Wealth is here Logo"
+                            <img src="<?= base_url('assets/images/nav_logo_blue.png') ?>" alt="BATNF | Wealth is here Logo"
                                 style="height: 60px;">
                         </td>
                     </tr>

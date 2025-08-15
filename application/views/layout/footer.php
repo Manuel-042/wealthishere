@@ -26,6 +26,10 @@
             <a href="<?= base_url('assets/files/Privacy Policy for the Farmers for Future.pdf') ?>"
               target="_blank">Privacy policy</a>
           </li>
+          <li class="mb-lg-4">
+            <a href="<?= base_url('assets/files/YEEP Support Guide.pdf') ?>"
+              target="_blank">YEEP Support Guide</a>
+          </li>
         </ul>
       </div>
 

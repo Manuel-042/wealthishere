@@ -156,7 +156,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle <?= (in_array($current_page, ['past-winners'])) ? 'active' : '' ?>"
+                            <a class="nav-link dropdown-toggle <?= (in_array($current_page, ['gap-alumni', 'f4f-alumni'])) ? 'active' : '' ?>"
                                 href="#" id="beneficiariesDropdown" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Youth Alumni

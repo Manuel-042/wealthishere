@@ -518,8 +518,8 @@ class Api extends CI_Controller
         // $this->form_validation->set_rules('question', 'Question', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            log_message('error', 'Validation errors: ' . var_export($this->form_validation->error_array(), true));
-            $this->session->set_flashdata('error', "Form Validation error");
+            // log_message('error', 'Validation errors: ' . var_export($this->form_validation->error_array(), true));
+            $this->session->set_flashdata('validation_errors', $this->form_validation->error_array());
             $this->session->set_flashdata('old_input', $this->input->post());
             redirect('contact-us');
         } else {
@@ -527,15 +527,18 @@ class Api extends CI_Controller
             $email          = $this->input->post('email', true) ?? null;
             $phone          = $this->input->post('phone', true) ?? null;
             $questionAnswer = $this->input->post('question', true) ?? null;
-            $question       = $this->input->post('selected_question', true) ?? null;
+            $questionVal    = $this->input->post('selected_question', true) ?? null;
             $customMessage  = $this->input->post('message', true) ?? null;
             $category_id    = $this->input->post('category', true) ?? null;
-            $question_id    = $this->input->post('question_id', true) ?? null;
+            $questionID    = $this->input->post('question_id', true); 
+            
+            $question_id = (!empty($questionID)) ? $questionID : NULL;
 
-            log_message("error", "category id: {$category_id}, question id: {$question_id}");
+            // log_message("error", "category id: {$category_id}, question id: {$question_id}");
 
-            $isOthers = ($category_id == '6' || $question_id == '18');
+            $isOthers = $category_id == '6';
             $responseMessage = $isOthers ? "Others" : $questionAnswer;
+            $question = $isOthers ? $customMessage : $questionVal;
 
             $support_log = [
                 'name' => $fullName,

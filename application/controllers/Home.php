@@ -2,6 +2,20 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 date_default_timezone_set('Africa/Lagos');
 
+/**
+ * @property CI_URI uri
+ * @property CI_Input input
+ * @property CI_Output output
+ * @property CI_Config config
+ * @property CI_Loader load
+ * @property CI_Upload upload
+ * @property CI_DB_query_builder db
+ * @property CI_Session session
+ * @property Ion_auth ion_auth
+ * @property Api_model api_model
+ * @property CI_DB db
+ * @property CI_Form_validation $form_validation
+ */
 class Home extends CI_Controller
 {
     public function __construct()
@@ -121,6 +135,13 @@ class Home extends CI_Controller
         if ($support) {
             $data = array_merge($data, $support);
         }
+
+        $old_input = $this->session->flashdata('old_input');
+        if (!empty($old_input)) {
+            $data['old_input'] = $old_input;
+        }
+
+        log_message('error', 'Data: ' . var_export($data, true));
 
         $this->load->view('layout/header', $data);
         $this->load->view("pages/contact-us", $data);
