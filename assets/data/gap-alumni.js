@@ -12,7 +12,7 @@ export const winnersData = {
           "assets/gap_alumni/FUNAAB/2025/Fasina_Johnson_Adewale/profile.jpg",
         expandable: true,
         document:
-          "assets/gap_alumni/FUNAAB/2025/Fasina_Johnson_Adewale/Fasina Johnson Adewale.docx",
+          "",
         sections: [
           {
             title: "About the Founder",
@@ -70,7 +70,7 @@ export const winnersData = {
           "assets/gap_alumni/FUNAAB/2025/Habeeb_Tijani/HABEEBULLAHI TIJANI.jpg",
         expandable: true,
         document:
-          "assets/gap_alumni/FUNAAB/2025/Habeeb_Tijani/Habeebullahi Tijani.docx",
+          "",
         sections: [
           {
             title: "About the Founder",
@@ -126,7 +126,7 @@ export const winnersData = {
         profileImage: "assets/gap_alumni/FUNAAB/2025/John_Fadipe/profile.jpg",
         expandable: true,
         document:
-          "assets/gap_alumni/FUNAAB/2025/John_Fadipe/John Oluwatobi Fadipe.docx",
+          "",
         sections: [
           {
             title: "About the Founder",
@@ -166,7 +166,7 @@ export const winnersData = {
           "assets/gap_alumni/Ibadan/2025/Khadejah_Owolabi/profile.jpg",
         expandable: true,
         document:
-          "assets/gap_alumni/Ibadan/2025/Khadejah_Owolabi/Khadejah Owolabi.docx",
+          "",
         sections: [
           {
             title: "About the Founder",
@@ -228,7 +228,7 @@ export const winnersData = {
           "assets/gap_alumni/UniIlorin/2025/Abdulbassit_Aliu/profile.jpg",
         expandable: true,
         document:
-          "assets/gap_alumni/UniIlorin/2025/Abdulbassit_Aliu/NexusAgri Profile for Visibility.docx",
+          "",
         sections: [
           {
             title: "About the Founder",
@@ -289,7 +289,7 @@ export const winnersData = {
           "assets/gap_alumni/UniIlorin/2025/Cynthia_Olorunmaiye/olorunmaiye cynthia.jpg",
         expandable: true,
         document:
-          "assets/gap_alumni/UniIlorin/2025/Cynthia_Olorunmaiye/Cynthia Olorunmaiye.docx",
+          "",
         sections: [
           {
             title: "About the Founder",
@@ -331,7 +331,7 @@ export const winnersData = {
           "assets/gap_alumni/UniIlorin/2025/Hanif_Abdullahi/Abdullahi Hanif Ayomide.png",
         expandable: true,
         document:
-          "assets/gap_alumni/UniIlorin/2025/Hanif_Abdullahi/MY PROFILE.docx",
+          "",
         sections: [
           {
             title: "About the Founder",
@@ -433,7 +433,7 @@ export const winnersData = {
           "assets/gap_alumni/UniIlorin/2025/John_Olumide_Adeyemi/profile.jpg",
         expandable: true,
         document:
-          "assets/gap_alumni/UniIlorin/2025/John_Olumide_Adeyemi/John Olumide Adeyemi.docx",
+          "",
         sections: [
           {
             title: "About the Founder",

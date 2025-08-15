@@ -97,7 +97,7 @@ export const winnersData = {
       qualification: "",
       profileImage: "assets/f4f_alumni/2023/Adebisi_Opeyemi/Opeyemi_Adebisi.JPG",
       expandable: true,
-      document: "assets/f4f_alumni/2023/Adebisi_Opeyemi/Pemnia Wellness BATN.pdf",
+      document: "",
       sections: [
         {
           title: "About the Business",
@@ -179,7 +179,7 @@ export const winnersData = {
       profileImage:
         "assets/f4f_alumni/2023/Williams_Ekwebelam/Williams_Ekwebelam.jpg",
       expandable: true,
-      document: "assets/f4f_alumni/2023/Williams_Ekwebelam/Ekwebelam Williams.docx",
+      document: "",
       sections: [
         {
           title: "About the Business",
@@ -316,7 +316,7 @@ export const winnersData = {
       qualification: "",
       profileImage: "https://i.postimg.cc/4317vFKX/Portrait-Placeholder.png",
       expandable: false,
-      document: "assets/f4f_alumni/2023/Idowu_Femi/idowu Femi profile.pdf",
+      document: "",
       sections: [
         {
           title: "About the Business",
@@ -405,7 +405,7 @@ export const winnersData = {
       qualification: "",
       profileImage: "assets/f4f_alumni/2022/Paul_Ugorji/Paul_Ugorji.jpg",
       expandable: true,
-      document: "assets/f4f_alumni/2022/Paul_Ugorji/PAUL ORJI- F4F Beneficiary.docx",
+      document: "",
       sections: [
         {
           title: "About the Business",
@@ -472,7 +472,7 @@ export const winnersData = {
       qualification: "",
       profileImage: "assets/f4f_alumni/2021/Ikechukwu_Maky/Ikechukwu_Maky.jpg",
       expandable: true,
-      document: "assets/f4f_alumni/2021/Ikechukwu_Maky/Nueco Agro Services Bio.docx",
+      document: "",
       sections: [
         {
           title: "About the Business",
@@ -513,7 +513,7 @@ export const winnersData = {
       qualification: "Forestry and Wood Technology",
       profileImage: "assets/f4f_alumni/2019/Taiwo_Olawumi/Taiwo_Kent.jpg",
       expandable: true,
-      document: "assets/f4f_alumni/2019/Taiwo_Olawumi/ABOUT QUOTIDIAN-V FOODS.pdf",
+      document: "",
       sections: [
         {
           title: "About the Business",
@@ -599,7 +599,7 @@ export const winnersData = {
       qualification: "",
       profileImage: "assets/f4f_alumni/2019/Chiamaka_Ndukwu/Chiamaka_Ndukwu.jpg",
       expandable: true,
-      document: "assets/f4f_alumni/2019/Chiamaka_Ndukwu/Introducing AgroHive.pdf",
+      document: "",
       sections: [
         {
           title: "About the Founder",
@@ -666,7 +666,7 @@ export const winnersData = {
       profileImage:
         "assets/f4f_alumni/2019/Lucy_Chioma_Aniagolu/Lucy_Chioma_Aniagolu.jpg",
       expandable: true,
-      document: "assets/f4f_alumni/2019/Lucy_Chioma_Aniagolu/About Agrodemy.pdf",
+      document: "",
       sections: [
         {
           title: "About the Founder",
